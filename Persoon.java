@@ -29,6 +29,10 @@ public class Persoon {
 
     }
 
+    public void setGeboortedatum(Datum geboortedatum) {
+        this.geboortedatum = geboortedatum;
+    }
+
     public void setBSN(int BSN) {
         this.BSN = BSN;
     }
@@ -48,19 +52,6 @@ public class Persoon {
         } else {
             //do something else, not sure yet what should happen
         }
-    }
-
-    /**
-     * Deze methode verandert de geboortedatum
-     *
-     * @param dag   dag
-     * @param maand maand
-     * @param jaar  jaar
-     */
-    public void setGeboortedatum(int dag, int maand, int jaar) {
-        geboortedatum.setDag(dag);
-        geboortedatum.setMaand(maand);
-        geboortedatum.setJaar(jaar);
     }
 
     public int getBSN() {
@@ -93,11 +84,8 @@ public class Persoon {
 
     }
 
-    @Override
     public String toString() {
-        return ("BSN: " + BSN + "; Naam: " + voornaam + " " + achternaam + "; Geboortedatum: " + geboortedatum + ";  Geslacht: " + geslacht);
+        return "BSN: " + BSN + "; Naam: " + voornaam + " " + achternaam + "; Geboortedatum: " + geboortedatum + ";  Geslacht: " + geslacht;
     }
 
-    public void setGeboortedatum(Datum geboortedatum) {
-    }
 }
