@@ -52,54 +52,12 @@ public class Dienblad {
         return prijs;
     }
 
-    /**
-     * Methode om een burgerservicenummer te
-     * veranderen
-     *
-     * @param bsn burgerservicenummer
-     */
-    public void setKlantBSN(int bsn) {
-        klant.setBSN(bsn);
-    }
+   public void setKlant(Persoon klant) {
+        this.klant = klant;
+   }
 
-    /**
-     * Methode om een voornaam te
-     * veranderen
-     *
-     * @param voornaam voornaam
-     */
-    public void setKlantVoornaam(String voornaam) {
-        klant.setVoornaam(voornaam);
-    }
-
-    /**
-     * Methode om een achternaam te
-     * veranderen
-     *
-     * @param achternaam achternaam
-     */
-    public void setKlantAchternaam(String achternaam) {
-        klant.setAchternaam(achternaam);
-    }
-
-    /**
-     * Methode om een geslacht te
-     * veranderen
-     *
-     * @param geslacht geslacht
-     */
-    public void setKlantGeslacht(char geslacht) {
-        klant.setGeslacht(geslacht);
-    }
-
-    /**
-     * Methode om een geboortedatum
-     * te veranderen
-     *
-     * @param geboortedatum geboortedatum
-     */
-    public void setKlantGeboortedatum(Datum geboortedatum) {
-        klant.setGeboortedatum(geboortedatum);
-    }
+   public Persoon getKlant() {
+        return klant;
+   }
 }
 
