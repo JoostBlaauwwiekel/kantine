@@ -5,10 +5,10 @@
  */
 
 public class Artikel {
-    private string naam;
+    private String naam;
     private double prijs;
 
-    public Artikel(string naam, double prijs) {
+    public Artikel(String naam, double prijs) {
         this.naam = naam;
         this.prijs = prijs;
     }
@@ -22,11 +22,11 @@ public class Artikel {
         return prijs;
     }
 
-    public string getNaam() {
+    public String getNaam() {
         return naam;
     }
 
-    public void setNaam(string naam) {
+    public void setNaam(String naam) {
         this.naam = naam;
     }
 
