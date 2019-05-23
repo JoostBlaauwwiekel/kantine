@@ -93,14 +93,13 @@ public class Dienblad {
     }
 
     /**
-     * Deze methode verandert de geboortedatum
+     * Methode om een geboortedatum
+     * te veranderen
      *
-     * @param dag   dag
-     * @param maand maand
-     * @param jaar  jaar
+     * @param geboortedatum geboortedatum
      */
-    public void setKlantGeboortedatum(int dag, int maand, int jaar) {
-        klant.setGeboortedatum(dag, maand, jaar);
+    public void setKlantGeboortedatum(Datum geboortedatum) {
+        klant.setGeboortedatum(geboortedatum);
     }
 }
 
