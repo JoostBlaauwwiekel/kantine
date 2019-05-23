@@ -25,7 +25,25 @@ public class Datum {
 		maand = 0;
 		jaar = 0;
 	}
-	
+
+	public void setDag(int dag) {
+		if(bestaatDatum(dag,maand,jaar)) {
+			this.dag = dag;
+		}
+	}
+
+	public void setMaand(int maand) {
+		if(bestaatDatum(dag,maand,jaar)) {
+			this.maand = maand;
+		}
+	}
+
+	public void setJaar(int jaar) {
+		if(bestaatDatum(dag,maand,jaar)) {
+			this.jaar = jaar;
+		}
+	}
+
 	public boolean bestaatDatum(int dag, int maand, int jaar){
 		// TODO? DONE!
 		boolean exists = false;

@@ -4,6 +4,7 @@ import java.util.Stack;
 
 public class Dienblad {
     private ArrayList<Artikel> artikelen = new ArrayList();
+    private Persoon klant;
 
     /**
      * Constructor
@@ -49,6 +50,57 @@ public class Dienblad {
             prijs += artikel.getPrijs();
         }
         return prijs;
+    }
+
+    /**
+     * Methode om een burgerservicenummer te
+     * veranderen
+     *
+     * @param bsn burgerservicenummer
+     */
+    public void setKlantBSN(int bsn) {
+        klant.setBSN(bsn);
+    }
+
+    /**
+     * Methode om een voornaam te
+     * veranderen
+     *
+     * @param voornaam voornaam
+     */
+    public void setKlantVoornaam(String voornaam) {
+        klant.setVoornaam(voornaam);
+    }
+
+    /**
+     * Methode om een achternaam te
+     * veranderen
+     *
+     * @param achternaam achternaam
+     */
+    public void setKlantAchternaam(String achternaam) {
+        klant.setAchternaam(achternaam);
+    }
+
+    /**
+     * Methode om een geslacht te
+     * veranderen
+     *
+     * @param geslacht geslacht
+     */
+    public void setKlantGeslacht(char geslacht) {
+        klant.setGeslacht(geslacht);
+    }
+
+    /**
+     * Deze methode verandert de geboortedatum
+     *
+     * @param dag   dag
+     * @param maand maand
+     * @param jaar  jaar
+     */
+    public void setKlantGeboortedatum(int dag, int maand, int jaar) {
+        klant.setGeboortedatum(dag, maand, jaar);
     }
 }
 
