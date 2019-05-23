@@ -3,22 +3,26 @@ import java.util.Iterator;
 import java.util.Stack;
 
 public class Dienblad {
-    private ArrayList<Artikel> artikelen;
+    private ArrayList<Artikel> artikelen = new ArrayList();
 
     /**
      * Constructor
      */
     public Dienblad() {
-        // method body omitted
+
+    }
+
+    public Dienblad(Persoon klant) {
+        klant = new Persoon();
     }
 
     /**
      * Methode om artikel aan dienblad toe te voegen
      *
-     * @param artikel
+     * @param artikel het artikel dat toegevoegd moet worden
      */
     public void voegToe(Artikel artikel) {
-        // method body omitted
+        artikelen.add(artikel);
     }
 
     /**
@@ -27,7 +31,7 @@ public class Dienblad {
      * @return Het aantal artikelen
      */
     public int getAantalArtikelen() {
-        // method body omitted
+        return artikelen.size();
     }
 
     /**
@@ -37,7 +41,14 @@ public class Dienblad {
      * @return De totaalprijs
      */
     public double getTotaalPrijs() {
-        // method body omitted
+        Iterator iterator = artikelen.iterator();
+        int prijs = 0;
+
+        while(iterator.hasNext()) {
+            Artikel artikel = (Artikel) iterator.next();
+            prijs += artikel.getPrijs();
+        }
+        return prijs;
     }
 }
 
