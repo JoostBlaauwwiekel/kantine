@@ -29,6 +29,10 @@ public class Persoon {
 
     }
 
+    public void setGeboortedatum(Datum geboortedatum) {
+        this.geboortedatum = geboortedatum;
+    }
+
     public void setBSN(int BSN) {
         this.BSN = BSN;
     }
@@ -80,9 +84,8 @@ public class Persoon {
 
     }
 
-    @override
-    public void toString() {
-        System.out.println("BSN: " + BSN + "; Naam: " + voornaam + " " + achternaam + "; Geboortedatum: " + geboortedatum + ";  Geslacht: " + geslacht);
+    public String toString() {
+        return "BSN: " + BSN + "; Naam: " + voornaam + " " + achternaam + "; Geboortedatum: " + geboortedatum + ";  Geslacht: " + geslacht;
     }
 
 }
