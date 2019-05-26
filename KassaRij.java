@@ -2,9 +2,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class KassaRij {
-
+    ArrayList<Dienblad> dienblad = new ArrayList<>();
     /**
-     * Constructor
+     * Constructor van de klasse Kassarij
      */
     public KassaRij() {
         // method body omitted
@@ -17,6 +17,7 @@ public class KassaRij {
      */
     public void sluitAchteraan(Dienblad klant) {
         // method body omitted
+        dienblad.add(klant);
     }
 
     /**
@@ -27,7 +28,11 @@ public class KassaRij {
      * @return Eerste klant in de rij of null
      */
     public Dienblad eerstePersoonInRij() {
-        // method body omitted
+        if(dienblad.size() > 0) {
+            return null;
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -36,6 +41,17 @@ public class KassaRij {
      * @return Of er wel of geen rij bestaat
      */
     public boolean erIsEenRij() {
-        // method body omitted
+        boolean waar = false;
+
+        //if there are records inside the dienblad arraylist, return true
+        //otherewise return false
+        if(dienblad.size() > 0) {
+            waar = true;
+        } else {
+            waar = false;
+        }
+
+        return waar;
+
     }
 }
