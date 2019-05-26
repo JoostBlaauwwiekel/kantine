@@ -44,28 +44,55 @@ public class Datum {
 		}
 	}
 
-	public boolean bestaatDatum(int dag, int maand, int jaar){
-		// TODO? DONE!
+	/**
+	 *
+	 * @param dag
+	 * @param maand
+	 * @param jaar
+	 * @return boolean valid date
+	 */
+	public boolean bestaatDatum(int dag, int maand, int jaar) {
 		boolean exists = false;
 
 		//first conditions
 		if(dag >= 1 && maand >= 1 && maand <= 12 && jaar >= 1900 && jaar <= 2100) {
 			//second layer of conditions
-			DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+			if(maand == 1 && dag > 31) {
 
-			// Input to be parsed should strictly follow the defined date format
-			// above.
-			format.setLenient(false);
+			} else if(maand == 2 && dag > 28) {
+				//some special conditions for february
+				if(jaar % 4 == 0) {
+					//if it is a 'schikkeljaar'
+					if(maand == 2 && dag > 29) {
+						exists = false;
+					}
+				}
 
-			String date = dag + "/" + maand + "/" + jaar;
-			try {
-				format.parse(date);
-			} catch (ParseException e) {
-				System.out.println("Datum: " + date + " is geen correcte datum. ");
+				exists = false;
+			} else if(maand == 3 && dag > 31) {
+				exists = false;
+			} else if(maand == 4 && dag > 30) {
+				exists = false;
+			} else if(maand == 5 && dag > 31) {
+				exists = false;
+			} else if(maand == 6 && dag > 30) {
+				exists = false;
+			} else if(maand == 7 && dag > 31) {
+				exists = false;
+			} else if(maand == 8 && dag > 31) {
+				exists = false;
+			} else if(maand == 9 && dag > 30) {
+				exists = false;
+			} else if(maand == 10 && dag > 31) {
+				exists = false;
+			} else if(maand == 11 && dag > 30) {
+				exists = false;
+			} else if(maand == 12 && dag > 31) {
+				exists = false;
+			} else {
+				//if everything is correct, the exits variable becomes true
+				exists = true;
 			}
-
-			//if everything is correct, the exits variable becomes true
-			exists = true;
 		}
 
 		return exists;
