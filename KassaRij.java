@@ -28,9 +28,15 @@ public class KassaRij {
      * @return Eerste klant in de rij of null
      */
     public Dienblad eerstePersoonInRij() {
+        Dienblad klant = null;
         if(dienblad.size() > 0) {
-            return null;
+            //first assign the value to a variable
+            //before we delete the value from the arraylist
+            klant = dienblad.get(0);
+            dienblad.remove(0);
+            return klant;
         } else {
+            //return null
             return null;
         }
     }
