@@ -3,6 +3,7 @@
  * @author Joost Blaauwwiekel
  *
  * Class Persoon
+ * Deze klasse bevat alle informatie van een persoon
  *
  */
 public class Persoon {
@@ -50,7 +51,8 @@ public class Persoon {
         if(this.geslacht == 'm' || this.geslacht == 'v') {
             this.geslacht = geslacht;
         } else {
-            //do something else, not sure yet what should happen
+            //log an error
+            System.out.println("invalid sex inserted");
         }
     }
 
