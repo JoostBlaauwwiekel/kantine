@@ -3,7 +3,7 @@ import java.util.Iterator;
 import java.util.Stack;
 
 public class Dienblad {
-    private ArrayList<Artikel> artikelen = new ArrayList();
+    private Stack<Artikel> artikelen = new Stack();
     private Persoon klant;
 
     /**
