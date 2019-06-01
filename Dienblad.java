@@ -35,23 +35,6 @@ public class Dienblad {
         return artikelen.size();
     }
 
-    /**
-     * Methode om de totaalprijs van de artikelen
-     * op dienblad uit te rekenen
-     *
-     * @return De totaalprijs
-     */
-    public double getTotaalPrijs() {
-        Iterator iterator = artikelen.iterator();
-        int prijs = 0;
-
-        while(iterator.hasNext()) {
-            Artikel artikel = (Artikel) iterator.next();
-            prijs += artikel.getPrijs();
-        }
-        return prijs;
-    }
-
    public void setKlant(Persoon klant) {
         this.klant = klant;
    }
@@ -59,5 +42,7 @@ public class Dienblad {
    public Persoon getKlant() {
         return klant;
    }
+
+   public Stack getArtikel() { return artikelen; }
 }
 

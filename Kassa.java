@@ -1,4 +1,5 @@
 import java.util.Iterator;
+import java.util.Stack;
 
 public class Kassa {
     private KassaRij kassarij;
@@ -22,7 +23,7 @@ public class Kassa {
      * @param klant die moet afrekenen
      */
     public void rekenAf(Dienblad klant) {
-        kassa += klant.getTotaalPrijs();
+        kassa += getTotaalPrijs(klant);
         aantal += klant.getAantalArtikelen();
     }
 
@@ -54,5 +55,23 @@ public class Kassa {
     public void resetKassa() {
         kassa = 0;
         aantal = 0;
+    }
+
+    /**
+     * Methode om de totaalprijs van de artikelen
+     * op dienblad uit te rekenen
+     *
+     * @return De totaalprijs
+     */
+    public double getTotaalPrijs(Dienblad dienblad) {
+        Stack artikelen = dienblad.getArtikel();
+        Iterator iterator = artikelen.iterator();
+        int prijs = 0;
+
+        while(iterator.hasNext()) {
+            Artikel artikel = (Artikel) iterator.next();
+            prijs += artikel.getPrijs();
+        }
+        return prijs;
     }
 }
