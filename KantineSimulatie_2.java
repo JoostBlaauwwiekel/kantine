@@ -109,18 +109,21 @@ public class KantineSimulatie {
         for(int i = 0; i < dagen; i++) {
 
             // bedenk hoeveel personen vandaag binnen lopen
-            int aantalpersonen = ... ;
+            int aantalpersonen = 77;
 
             // laat de personen maar komen...
             for(int j = 0; j < aantalpersonen; j++) {
 
                 // maak persoon en dienblad aan, koppel ze
                 // en bedenk hoeveel artikelen worden gepakt
-                int aantalartikelen = ... ;
+                int aantalartikelen = 3 ;
+                Persoon persoon = new Persoon();
+
+                kantine.loopPakSluitAan(persoon, artikelnamen);
 
                 // genereer de "artikelnummers", dit zijn indexen
                 // van de artikelnamen
-                array int[] tepakken = getRandomArray(
+                int[] tepakken = getRandomArray(
                     aantalartikelen, 0, AANTAL_ARTIKELEN-1);
 
                 // vind de artikelnamen op basis van
@@ -129,17 +132,22 @@ public class KantineSimulatie {
 
                 // loop de kantine binnen, pak de gewenste
                 // artikelen, sluit aan
+                KassaRij kassarij = new KassaRij();
+                kassarij.sluitAchteraan(persoon);
 
             }
 
             // verwerk rij voor de kassa
+            kantine.verwerkRijVoorKassa();
 
             // druk de dagtotalen af en hoeveel personen binnen
-
             // zijn gekomen
+            Kassa kassa = kantine.getKassa();
+            kassa.aantalArtikelen();
+            kassa.hoeveelheidGeldInKassa();
 
             // reset de kassa voor de volgende dag
-
+            kassa.resetKassa();
         }
     }
 }
