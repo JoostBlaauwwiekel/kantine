@@ -1,7 +1,9 @@
+import java.util.HashMap;
 public class Kantine {
 
     private Kassa kassa;
     private KassaRij kassarij;
+    private KantineAanbod kantineaanbod;
 
     /**
      * Constructor
@@ -9,6 +11,7 @@ public class Kantine {
     public Kantine() {
         kassarij = new KassaRij();
         kassa = new Kassa(kassarij);
+
     }
 
     /**
@@ -17,17 +20,24 @@ public class Kantine {
      * en plaats deze op het dienblad. Tenslotte sluit de
      * Persoon zich aan bij de rij voor de kassa.
      */
-    public void loopPakSluitAan() {
-        Persoon persoon = new Persoon();
-        Dienblad dienblad = new Dienblad();
-
-        //create to products
+    public void loopPakSluitAan(Persoon persoon, String[] artikelnamen) {
+        //create two products
         Artikel artikel1 = new Artikel();
         Artikel artikel2 = new Artikel();
 
+        Dienblad dienblad = new Dienblad();
         //add the products
         dienblad.voegToe(artikel1);
         dienblad.voegToe(artikel2);
+
+        //create a instance of HashMap
+        HashMap<Dienblad, Persoon> koppeling = new HashMap<Dienblad, Persoon>();
+
+        //add the combination to the HashMap
+        koppeling.put(dienblad, persoon);
+
+        //add the customer to the 'kassarij'
+        kassarij.sluitAchteraan(persoon);
     }
 
     /**
@@ -40,28 +50,18 @@ public class Kantine {
     }
 
     /**
-     * Deze methode telt het geld uit de kassa
-     *
-     * @return hoeveelheid geld in kassa
+     * Deze methode geeft de instantie variable kassa terug
+     * @return instantie variabele kassa
      */
-    public double hoeveelheidGeldInKassa() {
-      return kassa.hoeveelheidGeldInKassa();
+    public Kassa getKassa() {
+        return kassa;
     }
 
     /**
-     * Deze methode geeft het aantal gepasseerde artikelen.
-     *
-     * @return het aantal gepasseerde artikelen
+     * Deze methode geeft de instantie variabele kantineaanbod terug
+     * @return instantie variabele kantineaanbod
      */
-    public int aantalArtikelen() {
-        return kassa.aantalArtikelen();
-    }
-
-    /**
-     * Deze methode reset de bijgehouden telling van
-     * het aantal artikelen en "leegt" de inhoud van de kassa.
-     */
-    public void resetKassa() {
-        kassa.resetKassa();
+    public KantineAanbod getKantineaanbod() {
+        return kantineaanbod;
     }
 }

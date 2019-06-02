@@ -1,3 +1,4 @@
+import java.util.*;
 public class KantineAanbod {
     // interne opslag voorraad
     private HashMap<String, ArrayList<Artikel>> aanbod;
@@ -71,7 +72,7 @@ public class KantineAanbod {
     /**
      * Publieke methode om een artikel via naam van de stapel te pakken.
      * Retouneert null als artikel niet bestaat of niet op voorraad is.
-     * @param naam (van artikel)
+     * @param productnaam(van artikel)
      * @return artikel (of null)
      */
     public Artikel getArtikel(String productnaam) {
