@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class KassaRij {
-    LinkedList<Persoon> dienblad = new LinkedList<>();
+    LinkedList<Persoon> persoon = new LinkedList<>();
     /**
      * Constructor van de klasse Kassarij
      */
@@ -17,7 +17,7 @@ public class KassaRij {
      */
     public void sluitAchteraan(Persoon klant) {
         // method body omitted
-        dienblad.add(klant);
+        persoon.add(klant);
     }
 
     /**
@@ -29,11 +29,11 @@ public class KassaRij {
      */
     public Persoon eerstePersoonInRij() {
         Persoon klant = null;
-        if(dienblad.size() > 0) {
+        if(persoon.size() > 0) {
             //first assign the value to a variable
             //before we delete the value from the arraylist
-            klant = dienblad.get(0);
-            dienblad.remove(0);
+            klant = persoon.get(0);
+            persoon.remove(0);
             return klant;
         } else {
             //return null
@@ -51,7 +51,7 @@ public class KassaRij {
 
         //if there are records inside the dienblad arraylist, return true
         //otherewise return false
-        if(dienblad.size() > 0) {
+        if(persoon.size() > 0) {
             waar = true;
         } else {
             waar = false;
