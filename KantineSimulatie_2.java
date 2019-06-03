@@ -155,4 +155,18 @@ public class KantineSimulatie {
             kassa.resetKassa();
         }
     }
+    /**
+     * Start een simulatie
+     */
+    public static void main(String[] args) {
+        int dagen;
+        KantineSimulatie simulatie = new KantineSimulatie();
+        if (args.length == 0) {
+            dagen = 7;
+        } else {
+            dagen = Integer.parseInt(args[0]);
+        }
+
+        simulatie.simuleer(dagen);
+    }
 }

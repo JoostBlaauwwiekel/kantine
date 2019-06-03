@@ -78,4 +78,8 @@ public class Kantine {
     public HashMap getKoppeling() {
         return koppeling;
     }
+
+    public void setKantineAanbod(KantineAanbod aanbod) {
+        kantineaanbod = aanbod;
+    }
 }
