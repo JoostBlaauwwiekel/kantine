@@ -1,9 +1,9 @@
 public class KantineSimulatie {
 
-    private Kantine kantine;
-    private Kassa kassa;
-    private KassaRij kassarij;
-    private Dienblad klant;
+    // artikelen
+    private static final String[] artikelnamen = new String[]
+            {"Koffie", "Broodje pindakaas", "Broodje kaas", "Appelsap"};
+
 
     public static final int DAGEN = 7;
 
@@ -22,6 +22,9 @@ public class KantineSimulatie {
      */
     public void simuleer(int dagen) {
 
+        //maak een nieuwe kantine
+        Kantine kantine = new Kantine;
+
         // herhaal voor elke dag
         for(int i = 0; i < dagen; i++) {
 
@@ -30,11 +33,14 @@ public class KantineSimulatie {
 
             // for lus voor personen
             for(int j = 0; j < 10 + i; j++){
-                 kantine.loopPakSluitAan();
+                Persoon persoon = new Persoon();
+                kantine.loopPakSluitAan(persoon, artikelnamen);
             }
 
             // verwerk rij voor de kassa
-            kassa.rekenAf(klant);
+            //get nieuwe kassa
+            Kassa kassa = kantine.getKassa();
+            kassa.rekenAf();
             kassarij.eerstePersoonInRij();
 
 
@@ -58,6 +64,6 @@ public class KantineSimulatie {
             dagen = Integer.parseInt(args[0]);
         }
 
-        simulate(dagen);
+        simuleer(dagen);
     }
 }

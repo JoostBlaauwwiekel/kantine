@@ -119,6 +119,9 @@ public class KantineSimulatie {
                 int aantalartikelen = 3 ;
                 Persoon persoon = new Persoon();
 
+                //maak een kassarij
+                KassaRij kassarij = kantine.getKassaRij();
+
                 kantine.loopPakSluitAan(persoon, artikelnamen);
 
                 // genereer de "artikelnummers", dit zijn indexen
@@ -132,17 +135,19 @@ public class KantineSimulatie {
 
                 // loop de kantine binnen, pak de gewenste
                 // artikelen, sluit aan
-                KassaRij kassarij = new KassaRij();
                 kassarij.sluitAchteraan(persoon);
 
             }
+            //maak een kassa
+            Kassa kassa = kantine.getKassa();
 
             // verwerk rij voor de kassa
-            kantine.verwerkRijVoorKassa();
+            //eerst de Hashmap opvragen
+            HashMap koppeling = kantine.getKoppeling();
+            kantine.verwerkRijVoorKassa(koppeling);
 
             // druk de dagtotalen af en hoeveel personen binnen
             // zijn gekomen
-            Kassa kassa = kantine.getKassa();
             kassa.aantalArtikelen();
             kassa.hoeveelheidGeldInKassa();
 
