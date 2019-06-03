@@ -49,6 +49,15 @@ public class Kassa {
     }
 
     /**
+     * getter voor kassarij
+     * 
+     * @return kassarij
+     */
+    public KassaRij getKassarij() {
+        return kassarij;
+    }
+
+    /**
      * reset de waarden van het aantal gepasseerde artikelen en
      * de totale hoeveelheid geld in de kassa.
      */

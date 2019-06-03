@@ -25,6 +25,7 @@ public class KantineSimulatie {
         //maak een nieuwe kantine
         Kantine kantine = new Kantine;
 
+
         // herhaal voor elke dag
         for(int i = 0; i < dagen; i++) {
 
@@ -40,6 +41,7 @@ public class KantineSimulatie {
             // verwerk rij voor de kassa
             //get nieuwe kassa
             Kassa kassa = kantine.getKassa();
+            KassaRij kassarij = kassa.getKassarij();
             kassa.rekenAf();
             kassarij.eerstePersoonInRij();
 
@@ -57,13 +59,13 @@ public class KantineSimulatie {
      */
     public static void main(String[] args) {
         int dagen;
-
+        KantineSimulatie simulatie = new KantineSimulatie()
         if (args.length == 0) {
             dagen = DAGEN;
         } else {
             dagen = Integer.parseInt(args[0]);
         }
 
-        simuleer(dagen);
+        simulatie.simuleer(dagen);
     }
 }

@@ -54,9 +54,9 @@ public class KantineSimulatie {
      * Methode om een array van random getallen liggend tussen
      * min en max van de gegeven lengte te genereren
      *
-     * @param lengte
-     * @param min
-     * @param max
+     * @param lengte lengte
+     * @param min min
+     * @param max max
      * @return De array met random getallen
      */
     private int[] getRandomArray(int lengte, int min, int max) {
