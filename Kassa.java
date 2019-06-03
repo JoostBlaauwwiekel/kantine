@@ -50,7 +50,7 @@ public class Kassa {
 
     /**
      * getter voor kassarij
-     * 
+     *
      * @return kassarij
      */
     public KassaRij getKassarij() {

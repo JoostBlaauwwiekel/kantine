@@ -6,7 +6,7 @@ public class Kantine {
     private KassaRij kassarij;
     private KantineAanbod kantineaanbod;
     //create a instance of HashMap
-    HashMap<Dienblad, Persoon> koppeling = new HashMap<Dienblad, Persoon>();
+    HashMap<Persoon, Dienblad> koppeling = new HashMap<Persoon, Dienblad>();
 
     /**
      * Constructor
@@ -34,7 +34,7 @@ public class Kantine {
         dienblad.voegToe(artikel2);
 
         //add the combination to the HashMap
-        koppeling.put(dienblad, persoon);
+        koppeling.put(persoon, dienblad);
 
         //add the customer to the 'kassarij'
         kassarij.sluitAchteraan(persoon);

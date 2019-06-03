@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 public class KantineSimulatie {
 
     // artikelen
@@ -11,19 +13,19 @@ public class KantineSimulatie {
      * Constructor
      */
     public KantineSimulatie() {
-        kantine = new Kantine();
+        Kantine kantine = new Kantine();
     }
 
     /**
      * Deze methode simuleert een aantal dagen in het
      * verloop van de kantine
      *
-     * @param dagen
+     * @param dagen aantal dagen
      */
     public void simuleer(int dagen) {
 
         //maak een nieuwe kantine
-        Kantine kantine = new Kantine;
+        Kantine kantine = new Kantine();
 
 
         // herhaal voor elke dag
@@ -42,8 +44,11 @@ public class KantineSimulatie {
             //get nieuwe kassa
             Kassa kassa = kantine.getKassa();
             KassaRij kassarij = kassa.getKassarij();
-            kassa.rekenAf();
-            kassarij.eerstePersoonInRij();
+            HashMap<Persoon, Dienblad> koppeling = kantine.getKoppeling();
+            Persoon klant = kassarij.eerstePersoonInRij();
+            Dienblad dienblad = koppeling.get(klant);
+            kassa.rekenAf(dienblad);
+
 
 
             // toon dagtotalen (artikelen en geld in kassa)
@@ -59,7 +64,7 @@ public class KantineSimulatie {
      */
     public static void main(String[] args) {
         int dagen;
-        KantineSimulatie simulatie = new KantineSimulatie()
+        KantineSimulatie simulatie = new KantineSimulatie();
         if (args.length == 0) {
             dagen = DAGEN;
         } else {
