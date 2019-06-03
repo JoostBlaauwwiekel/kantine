@@ -61,6 +61,14 @@ public class Kantine {
     }
 
     /**
+     * Deze methode geeft de instantie variabele kassarij terug
+     * @return instantie variabele kassarij
+     */
+    public KassaRij getKassarij() {
+        return kassarij;
+    }
+
+    /**
      * Deze methode geeft de instantie variabele kantineaanbod terug
      * @return instantie variabele kantineaanbod
      */
