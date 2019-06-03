@@ -5,6 +5,8 @@ public class Kantine {
     private Kassa kassa;
     private KassaRij kassarij;
     private KantineAanbod kantineaanbod;
+    //create a instance of HashMap
+    HashMap<Dienblad, Persoon> koppeling = new HashMap<Dienblad, Persoon>();
 
     /**
      * Constructor
@@ -30,9 +32,6 @@ public class Kantine {
         //add the products
         dienblad.voegToe(artikel1);
         dienblad.voegToe(artikel2);
-
-        //create a instance of HashMap
-        HashMap<Dienblad, Persoon> koppeling = new HashMap<Dienblad, Persoon>();
 
         //add the combination to the HashMap
         koppeling.put(dienblad, persoon);
@@ -74,5 +73,9 @@ public class Kantine {
      */
     public KantineAanbod getKantineaanbod() {
         return kantineaanbod;
+    }
+
+    public HashMap getKoppeling() {
+        return koppeling;
     }
 }
