@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Iterator;
 public class Kantine {
 
     private Kassa kassa;
@@ -43,9 +44,11 @@ public class Kantine {
     /**
      * Deze methode handelt de rij voor de kassa af.
      */
-    public void verwerkRijVoorKassa() {
-        while() {
-            kassa.rekenAf();
+    public void verwerkRijVoorKassa(HashMap koppeling) {
+        Iterator iterator = koppeling.entrySet().iterator();
+        while(iterator.hasNext()) {
+            Dienblad dienblad = (Dienblad) iterator.next();
+            kassa.rekenAf(dienblad);
         }
     }
 
