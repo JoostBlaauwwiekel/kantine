@@ -1,9 +1,26 @@
+/**
+ *
+ * class Datum
+ *
+ * @author Joost Blaauwwiekel
+ * @version 1.0
+ */
 public class Datum {
 
 	private int dag;
 	private int maand;
 	private int jaar;
 
+	/**
+	 *
+	 * Constructor van de klasse Datum
+	 * Controleert of de datum bestaat,
+	 * anders worden de waarden naar 0 gezet
+	 *
+	 * @param dag
+	 * @param maand
+	 * @param jaar
+	 */
 	public Datum(int dag, int maand, int jaar) {
 		if(bestaatDatum(this.dag, this.maand, this.jaar)) {
 			this.dag = dag;
@@ -16,24 +33,39 @@ public class Datum {
 		}
 	}
 
+	/**
+	 * parameterloze constructor
+	 */
 	public Datum() {
 		dag = 0;
 		maand = 0;
 		jaar = 0;
 	}
 
+	/**
+	 * Setter van de variabele dag
+	 * @param dag
+	 */
 	public void setDag(int dag) {
 		if(bestaatDatum(dag,maand,jaar)) {
 			this.dag = dag;
 		}
 	}
 
+	/**
+	 * Setter van de variabele dag
+	 * @param maand
+	 */
 	public void setMaand(int maand) {
 		if(bestaatDatum(dag,maand,jaar)) {
 			this.maand = maand;
 		}
 	}
 
+	/**
+	 * Setter van de variabele jaar
+	 * @param jaar
+	 */
 	public void setJaar(int jaar) {
 		if(bestaatDatum(dag,maand,jaar)) {
 			this.jaar = jaar;
@@ -41,6 +73,9 @@ public class Datum {
 	}
 
 	/**
+	 *
+	 * Deze methode controleert of de opgegeven
+	 * datum bestaat of niet
 	 *
 	 * @param dag
 	 * @param maand
