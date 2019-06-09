@@ -108,16 +108,31 @@ public class KantineSimulatie {
         // for lus voor dagen
         for(int i = 0; i < dagen; i++) {
 
-            // bedenk hoeveel personen vandaag binnen lopen
-            int aantalpersonen = 77;
+            //de kansen om studenten, docenten en medewerkers te krijgen
+            int kansStudenten = 89;
+            int kansDocenten = 10;
+            int kansKantineMedewerkers = 1;
+            //totaal aantal mensen
+            int totaalPersonen = 100;
+
 
             // laat de personen maar komen...
-            for(int j = 0; j < aantalpersonen; j++) {
+            for(int j = 0; j < totaalPersonen; j++) {
 
                 // maak persoon en dienblad aan, koppel ze
                 // en bedenk hoeveel artikelen worden gepakt
                 int aantalartikelen = 3 ;
-                Persoon persoon = new Persoon();
+                Persoon persoon;
+                int randomPersoon = random.nextInt(100);
+                if(randomPersoon <= kansStudenten) {
+                    persoon = new Student("", 0);
+                } else if(randomPersoon <= kansStudenten+kansDocenten) {
+                    persoon = new Docent("", "");
+                } else if(j <= kansStudenten+kansDocenten+kansKantineMedewerkers) {
+                    persoon = new KantineMedewerker(0, false);
+                } else {
+                    persoon = new Persoon();
+                }
 
                 //maak een kassarij
                 KassaRij kassarij = kantine.getKassaRij();
