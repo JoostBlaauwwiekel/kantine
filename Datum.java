@@ -10,7 +10,6 @@ public class Datum {
 	private int jaar;
 
 	/**
-	 *
 	 * Constructor van de klasse Datum
 	 * Controleert of de datum bestaat,
 	 * anders worden de waarden naar 0 gezet
@@ -43,7 +42,7 @@ public class Datum {
 
 	/**
 	 * Setter van de variabele dag
-	 * @param dag
+	 * @param dag dag van datum
 	 */
 	public void setDag(int dag) {
 		if(bestaatDatum(dag,maand,jaar)) {
@@ -53,7 +52,7 @@ public class Datum {
 
 	/**
 	 * Setter van de variabele dag
-	 * @param maand
+	 * @param maand maand van datum
 	 */
 	public void setMaand(int maand) {
 		if(bestaatDatum(dag,maand,jaar)) {
@@ -63,7 +62,7 @@ public class Datum {
 
 	/**
 	 * Setter van de variabele jaar
-	 * @param jaar
+	 * @param jaar jaar van datum
 	 */
 	public void setJaar(int jaar) {
 		if(bestaatDatum(dag,maand,jaar)) {
@@ -76,9 +75,9 @@ public class Datum {
 	 * Deze methode controleert of de opgegeven
 	 * datum bestaat of niet
 	 *
-	 * @param dag
-	 * @param maand
-	 * @param jaar
+	 * @param dag dag van datum
+	 * @param maand maand van datum
+	 * @param jaar jaar van datum
 	 * @return boolean valid date
 	 */
 	public boolean bestaatDatum(int dag, int maand, int jaar) {
@@ -130,7 +129,7 @@ public class Datum {
 	
 	/**
 	 * Getter voor Sting weergave van datum
-	 * @return Geboortedatum
+	 * @return datum als String
 	 */
 	public String getDatumAsString() {
 		return dag + "-" + maand + "-" + jaar;

@@ -9,7 +9,26 @@ public class Student extends Persoon {
     int studentnummer;
 
     /**
-     * Constructor van Student
+     * Constructor van Student waar ook alle variabelen voor de Persoonklasse worden ingevoegd
+     *
+     * @param BSN burgerservicenummer, uniek per Student
+     * @param voornaam voornaam van Student
+     * @param achternaam achternaam van Student
+     * @param geslacht geslacht van Student
+     * @param dag dag van de maand van geboortedatum
+     * @param maand geboortemaand
+     * @param jaar geboortejaar
+     * @param studierichting
+     * @param studentnummer
+     */
+    public Student(int BSN, String voornaam, String achternaam, char geslacht, int dag, int maand, int jaar, String studierichting, int studentnummer) {
+        super(BSN,voornaam,achternaam,geslacht,dag,maand,jaar);
+        this.studentnummer = studentnummer;
+        this.studierichting = studierichting;
+    }
+
+    /**
+     * Constructor van Student met alleen de super() waarden leeg gelaten
      *
      * @param studierichting welke opleiding de student volgt
      * @param studentnummer unieke studentnummer van de student
@@ -21,7 +40,7 @@ public class Student extends Persoon {
     }
 
     /**
-     * Constructor van Student waar de waarden leeg gelaten zijn
+     * Constructor van Student met alle waarden leeg gelaten
      */
     public Student() {
         super();
@@ -47,7 +66,7 @@ public class Student extends Persoon {
 
     /**
      * Getter voor de variabele studentnummer
-     * @return studentnummer
+     * @return het studentnummer
      */
     public int getStudentnummer() {
         return studentnummer;
@@ -55,7 +74,7 @@ public class Student extends Persoon {
 
     /**
      * Getter voor de variabele studierichting
-     * @return studierichting
+     * @return de studierichting
      */
     public String getStudierichting() {
         return studierichting;

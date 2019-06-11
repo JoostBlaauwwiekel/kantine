@@ -14,12 +14,11 @@ public class Kantine {
     HashMap<Persoon, Dienblad> koppeling = new HashMap<Persoon, Dienblad>();
 
     /**
-     * Constructor
+     * Constructor voor Kantine
      */
     public Kantine() {
         kassarij = new KassaRij();
         kassa = new Kassa(kassarij);
-
     }
 
     /**
@@ -27,6 +26,9 @@ public class Kantine {
      * en aan elkaar gekoppeld. Maak twee Artikelen aan
      * en plaats deze op het dienblad. Tenslotte sluit de
      * Persoon zich aan bij de rij voor de kassa.
+     *
+     * @param persoon persoon in de rij
+     * @param artikelnamen lijst van artikelnamen
      */
     public void loopPakSluitAan(Persoon persoon, String[] artikelnamen) {
         //create two products
@@ -47,6 +49,8 @@ public class Kantine {
 
     /**
      * Deze methode handelt de rij voor de kassa af.
+     *
+     * @param koppeling de link tussen persoon en dienblad
      */
     public void verwerkRijVoorKassa(HashMap koppeling) {
         Iterator iterator = koppeling.entrySet().iterator();
@@ -56,7 +60,7 @@ public class Kantine {
 
     /**
      * Deze methode geeft de instantie variable kassa terug
-     * @return instantie variabele kassa
+     * @return kassa
      */
     public Kassa getKassa() {
         return kassa;
@@ -64,7 +68,7 @@ public class Kantine {
 
     /**
      * Deze methode geeft de instantie variabele kassarij terug
-     * @return instantie variabele kassarij
+     * @return kassarij
      */
     public KassaRij getKassaRij() {
         return kassarij;
@@ -72,16 +76,24 @@ public class Kantine {
 
     /**
      * Deze methode geeft de instantie variabele kantineaanbod terug
-     * @return instantie variabele kantineaanbod
+     * @return kantineaanbod
      */
     public KantineAanbod getKantineaanbod() {
         return kantineaanbod;
     }
 
+    /**
+     * Getter voor koppeling
+     * @return koppeling
+     */
     public HashMap getKoppeling() {
         return koppeling;
     }
 
+    /**
+     * Setter voor KantineAanbod
+     * @param aanbod het kantineaanbod
+     */
     public void setKantineAanbod(KantineAanbod aanbod) {
         kantineaanbod = aanbod;
     }

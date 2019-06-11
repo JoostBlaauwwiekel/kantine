@@ -17,7 +17,7 @@ public class KassaRij {
     /**
      * Persoon sluit achter in de rij aan
      *
-     * @param klant
+     * @param klant klant die in de rij aansluit
      */
     public void sluitAchteraan(Persoon klant) {
         // method body omitted

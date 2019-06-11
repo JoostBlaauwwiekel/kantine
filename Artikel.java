@@ -10,8 +10,8 @@ public class Artikel {
     /**
      * Constructor van de klasse Artikel
      *
-     * @param naam
-     * @param prijs
+     * @param naam naam van artikel
+     * @param prijs prijs per stuk
      */
     public Artikel(String naam, double prijs) {
         this.naam = naam;
@@ -19,7 +19,7 @@ public class Artikel {
     }
 
     /**
-     * Parameterloze constructor
+     * Parameterloze constructor van Artikel
      */
     public Artikel() {
         //nothing
@@ -27,16 +27,16 @@ public class Artikel {
     }
 
     /**
-     * Getter van de variabele prijs
-     * @return prijs
+     * Getter van de variabele prijs per stuk
+     * @return prijs per stuk
      */
     public double getPrijs() {
         return prijs;
     }
 
     /**
-     * Getter van de variabele naam
-     * @return naam
+     * Getter van de naam van een artikel
+     * @return naam van artikel
      */
     public String getNaam() {
         return naam;
@@ -44,7 +44,7 @@ public class Artikel {
 
     /**
      * Setter van de variabele naam
-     * @param naam
+     * @param naam naam van artikel
      */
     public void setNaam(String naam) {
         this.naam = naam;
@@ -52,7 +52,7 @@ public class Artikel {
 
     /**
      * Setter van de variabele prijs
-     * @param prijs
+     * @param prijs prijs per stuk
      */
     public void setPrijs(double prijs) {
         this.prijs = prijs;

@@ -15,6 +15,10 @@ public class KantineAanbod {
      * het tweede argument is een lijst met prijzen en het derde argument
      * is een lijst met hoeveelheden. Let op: de dimensies van de drie arrays
      * moeten wel gelijk zijn!
+     *
+     * @param artikelnaam lijst van artikelnamen
+     * @param prijs lijst van prijzen
+     * @param hoeveelheid lijst van hoeveelheden
      */
     public KantineAanbod(String[] artikelnaam, double[] prijs, int[] hoeveelheid) {
         aanbod=new HashMap<String, ArrayList<Artikel>>();
@@ -33,6 +37,10 @@ public class KantineAanbod {
         }
     }
 
+    /**
+     * Methode om de voorraad van een product aan te vullen
+     * @param productnaam naam van het product
+     */
     private void vulVoorraadAan(String productnaam){
     	ArrayList<Artikel> huidigeVoorraad = aanbod.get(productnaam);
     	int startHoeveelheid = startVoorraad.get(productnaam);
@@ -45,9 +53,12 @@ public class KantineAanbod {
         aanbod.put(productnaam, huidigeVoorraad);
     }
     
-    /*
+    /**
      * Private methode om de lijst van artikelen te krijgen op basis van de    
      * naam van het artikel. Retourneert null als artikel niet bestaat.
+     *
+     * @param productnaam naam van het product
+     * @return lijst van artikelen
      */
     private ArrayList<Artikel> getArrayList(String productnaam) {
          return aanbod.get(productnaam); 
@@ -56,6 +67,9 @@ public class KantineAanbod {
     /**
      * Private methode om een Artikel van de stapel artikelen af te pakken. 
      * Retourneert null als de stapel leeg is.
+     *
+     * @param stapel stapel van artikelen
+     * @return artikel van stapel
      */
     private Artikel getArtikel(ArrayList<Artikel> stapel) {
         if (stapel==null) { 
@@ -77,7 +91,8 @@ public class KantineAanbod {
     /**
      * Publieke methode om een artikel via naam van de stapel te pakken.
      * Retouneert null als artikel niet bestaat of niet op voorraad is.
-     * @param productnaam(van artikel)
+     *
+     * @param productnaam naam van product
      * @return artikel (of null)
      */
     public Artikel getArtikel(String productnaam) {

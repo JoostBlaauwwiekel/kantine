@@ -8,13 +8,41 @@ public class KantineMedewerker extends Persoon {
     int medewerkersNummer;
     boolean magKassaStaan;
 
+    /**
+     * Constructor van KantineMedewerker waar ook alle variabelen voor de Persoonklasse worden ingevoegd
+     *
+     * @param BSN burgerservicenummer, uniek per medewerker
+     * @param voornaam voornaam van medewerker
+     * @param achternaam achternaam van medewerker
+     * @param geslacht geslacht van medewerker
+     * @param dag dag van de maand van geboortedatum
+     * @param maand geboortemaand
+     * @param jaar geboortejaar
+     * @param medewerkersNummer id-nummer van de medewerker
+     * @param magKassaStaan boolean of de klant wel/niet achter de kassa mag staan
+     */
+    public KantineMedewerker(int BSN, String voornaam, String achternaam, char geslacht, int dag, int maand, int jaar, int medewerkersNummer, boolean magKassaStaan) {
+        super(BSN,voornaam,achternaam,geslacht,dag,maand,jaar);
+        this.magKassaStaan = magKassaStaan;
+        this.medewerkersNummer = medewerkersNummer;
+    }
 
+
+    /**
+     * Constructor van KantineMedewerker met alleen de super() waarden leeg gelaten
+     *
+     * @param medewerkersNummer id-nummer van de medewerker
+     * @param magKassaStaan boolean of de klant wel/niet achter de kassa mag staan
+     */
     public KantineMedewerker(int medewerkersNummer, boolean magKassaStaan) {
         super();
         this.magKassaStaan = magKassaStaan;
         this.medewerkersNummer = medewerkersNummer;
     }
 
+    /**
+     * Constructor van KantineMedewerker met alle waarden leeg gelaten
+     */
     public KantineMedewerker() {
         super();
         magKassaStaan = false;
@@ -23,7 +51,7 @@ public class KantineMedewerker extends Persoon {
 
     /**
      * Setter voor de variabele magKassaStaan
-     * @param magKassaStaan
+     * @param magKassaStaan boolean of de klant wel/niet achter de kassa mag staan
      */
     public void setMagKassaStaan(boolean magKassaStaan) {
         this.magKassaStaan = magKassaStaan;
@@ -31,7 +59,7 @@ public class KantineMedewerker extends Persoon {
 
     /**
      * Setter voor de variabele medewerkersnummer
-     * @param medewerkersNummer
+     * @param medewerkersNummer id-nummer van de medewerker
      */
     public void setMedewerkersNummer(int medewerkersNummer) {
         this.medewerkersNummer = medewerkersNummer;

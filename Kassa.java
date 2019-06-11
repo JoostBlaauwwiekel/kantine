@@ -12,7 +12,9 @@ public class Kassa {
 
 
     /**
-     * Constructor
+     * Constructor van Kassa
+     *
+     * @param kassarij de kassarij van de kassa
      */
     public Kassa(KassaRij kassarij) {
         this.kassarij = kassarij;
@@ -24,7 +26,7 @@ public class Kassa {
      * de kassa worden bijgehouden. De implementatie wordt
      * later vervangen door een echte betaling door de persoon.
      *
-     * @param klant die moet afrekenen
+     * @param klant de klant die moet afrekenen
      */
     public void rekenAf(Dienblad klant) {
         kassa += getTotaalPrijs(klant);
@@ -74,6 +76,7 @@ public class Kassa {
      * Methode om de totaalprijs van de artikelen
      * op dienblad uit te rekenen
      *
+     * @param dienblad dienblad met artikelen
      * @return De totaalprijs
      */
     public double getTotaalPrijs(Dienblad dienblad) {

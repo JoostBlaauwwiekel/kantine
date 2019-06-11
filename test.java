@@ -1,3 +1,8 @@
+/**
+ * class test
+ * @version 1.0
+ * @author Joost Blaauwiekel & Hessel Jager
+ */
 public class test {
     public Datum datum;
 

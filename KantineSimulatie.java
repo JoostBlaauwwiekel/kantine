@@ -43,8 +43,7 @@ public class KantineSimulatie {
     private static final int MAX_ARTIKELEN_PER_PERSOON = 4;
 
     /**
-     * Constructor
-     *
+     * Constructor van KantineSimulatie
      */
     public KantineSimulatie() {
         kantine = new Kantine();
@@ -63,9 +62,9 @@ public class KantineSimulatie {
      * Methode om een array van random getallen liggend tussen
      * min en max van de gegeven lengte te genereren
      *
-     * @param lengte lengte
-     * @param min min
-     * @param max max
+     * @param lengte lengte van array
+     * @param min mininum getal
+     * @param max maximum getal
      * @return De array met random getallen
      */
     private int[] getRandomArray(int lengte, int min, int max) {
@@ -81,9 +80,9 @@ public class KantineSimulatie {
      * Methode om een random getal tussen min(incl)
      * en max(incl) te genereren.
      *
-     * @param min
-     * @param max
-     * @return Een random getal
+     * @param min minimum getal
+     * @param max maximum getal
+     * @return Een random getal tussen min en max
      */
     private int getRandomValue(int min, int max) {
         return random.nextInt(max - min + 1) + min;
@@ -93,7 +92,7 @@ public class KantineSimulatie {
      * Methode om op basis van een array van indexen voor de array
      * artikelnamen de bijhorende array van artikelnamen te maken
      *
-     * @param indexen
+     * @param indexen de indexen van de artikelen
      * @return De array met artikelnamen
      */
     private String[] geefArtikelNamen(int[] indexen) {
@@ -111,7 +110,7 @@ public class KantineSimulatie {
      * Deze methode simuleert een aantal dagen
      * in het verloop van de kantine
      *
-     * @param dagen
+     * @param dagen hoeveelheid dagen dat de kantine simuleert
      */
     public void simuleer(int dagen) {
         // for lus voor dagen
@@ -182,7 +181,7 @@ public class KantineSimulatie {
         //als kansen van de typen personen moeten altijd 100% totaal zijn
         //als dat niet het geval is stopt het programma
         if(!(kansStudenten+kansDocenten+kansKantineMedewerkers == 100)) {
-            System.out.println("Kansen moeten totaal 100% zijn");
+            System.out.println("Kansen moeten totaal 100% zijn. Het is nu: " + (kansStudenten+kansDocenten+kansKantineMedewerkers) + "%");
             return;
         }
         int dagen;

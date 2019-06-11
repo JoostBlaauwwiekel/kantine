@@ -8,12 +8,40 @@ public class Docent extends Persoon {
     String afdeling;
     String afkorting;
 
+    /**
+     * Constructor van Docent waar ook alle variabelen voor de Persoonklasse worden ingevoegd
+     *
+     * @param BSN burgerservicenummer, uniek per docent
+     * @param voornaam voornaam van docent
+     * @param achternaam achternaam van docent
+     * @param geslacht geslacht van docent
+     * @param dag dag van de maand van geboortedatum
+     * @param maand geboortemaand
+     * @param jaar geboortejaar
+     * @param afdeling de afdeling van de docent
+     * @param afkorting de afkorting van de docent
+     */
+    public Docent(int BSN, String voornaam, String achternaam, char geslacht, int dag, int maand, int jaar, String afdeling, String afkorting) {
+        super(BSN,voornaam,achternaam,geslacht,dag,maand,jaar);
+        this.afdeling = afdeling;
+        this.afkorting = afkorting;
+    }
+
+    /**
+     * Constructor van Docent met alleen de super() waarden leeg gelaten
+     *
+     * @param afdeling de afdeling van de docent
+     * @param afkorting de afkorting van de docent
+     */
     public Docent(String afdeling, String afkorting) {
         super();
         this.afdeling = afdeling;
         this.afkorting = afkorting;
     }
 
+    /**
+     * Constructor van Docent waar alle waarden leeg
+     */
     public Docent(){
         super();
         afdeling = "";

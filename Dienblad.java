@@ -14,13 +14,11 @@ public class Dienblad {
     /**
      * Parameterloze constructor
      */
-    public Dienblad() {
-
-    }
+    public Dienblad() { }
 
     /**
      * Constructor van de klasse Dienblad
-     * @param klant
+     * @param klant de klant van wie het dienblad is
      */
     public Dienblad(Persoon klant) {
         klant = new Persoon();
@@ -46,7 +44,7 @@ public class Dienblad {
 
     /**
      * Setter van de variabele klant
-     * @param klant
+     * @param klant de klant van wie het dienblad is
      */
     public void setKlant(Persoon klant) {
         this.klant = klant;
@@ -54,7 +52,7 @@ public class Dienblad {
 
     /**
      * Getter van de variabele klant
-     * @return
+     * @return klant
      */
     public Persoon getKlant() {
         return klant;
@@ -62,7 +60,7 @@ public class Dienblad {
 
     /**
      * Getter van de variabele artikel
-     * @return
+     * @return artikelen
      */
     public Stack getArtikel() {
         return artikelen;
