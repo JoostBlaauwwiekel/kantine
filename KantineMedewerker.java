@@ -16,7 +16,7 @@ public class KantineMedewerker extends Persoon {
         this.magKassaStaan = magKassaStaan;
         this.medewerkersNummer = medewerkersNummer;
     }
-    
+
     public KantineMedewerker() {
         super();
         magKassaStaan = false;
