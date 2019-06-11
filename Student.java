@@ -18,8 +18,8 @@ public class Student extends Persoon {
      * @param dag dag van de maand van geboortedatum
      * @param maand geboortemaand
      * @param jaar geboortejaar
-     * @param studierichting
-     * @param studentnummer
+     * @param studierichting welke opleiding de student volgt
+     * @param studentnummer unieke studentnummer van de student
      */
     public Student(int BSN, String voornaam, String achternaam, char geslacht, int dag, int maand, int jaar, String studierichting, int studentnummer) {
         super(BSN,voornaam,achternaam,geslacht,dag,maand,jaar);
