@@ -2,6 +2,11 @@ import java.util.*;
 
 public class KantineSimulatie {
 
+    //de kansen om studenten, docenten en medewerkers te krijgen
+    static int kansStudenten = 89;
+    static int kansDocenten = 10;
+    static int kansKantineMedewerkers = 1;
+
     // kantine
     private Kantine kantine;
 
@@ -108,10 +113,6 @@ public class KantineSimulatie {
         // for lus voor dagen
         for(int i = 0; i < dagen; i++) {
 
-            //de kansen om studenten, docenten en medewerkers te krijgen
-            int kansStudenten = 89;
-            int kansDocenten = 10;
-            int kansKantineMedewerkers = 1;
             //totaal aantal mensen
             int totaalPersonen = 100;
 
@@ -174,6 +175,12 @@ public class KantineSimulatie {
      * Start een simulatie
      */
     public static void main(String[] args) {
+        //als kansen van de typen personen moeten altijd 100% totaal zijn
+        //als dat niet het geval is stopt het programma
+        if(!(kansStudenten+kansDocenten+kansKantineMedewerkers == 100)) {
+            System.out.println("Kansen moeten totaal 100% zijn");
+            return;
+        }
         int dagen;
         KantineSimulatie simulatie = new KantineSimulatie();
         if (args.length == 0) {

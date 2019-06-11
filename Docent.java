@@ -16,6 +16,12 @@ public class Docent extends Persoon {
         this.afkorting = afkorting;
     }
 
+    public Docent(){
+        super();
+        afdeling = "";
+        afkorting = "";
+    }
+
     /**
      * Setter voor de variabele afdeling
      * @param afdeling

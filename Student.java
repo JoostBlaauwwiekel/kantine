@@ -16,6 +16,12 @@ public class Student extends Persoon {
         this.studierichting = studierichting;
     }
 
+    public Student() {
+        super();
+        studentnummer = 0;
+        studierichting = "";
+    }
+
     /**
      * Setter voor de variabele studentNummer
      * @param studentnummer
