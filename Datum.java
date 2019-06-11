@@ -1,9 +1,7 @@
 /**
- *
  * class Datum
- *
- * @author Joost Blaauwwiekel
  * @version 1.0
+ * @author Joost Blaauwiekel & Hessel Jager
  */
 public class Datum {
 
@@ -17,11 +15,12 @@ public class Datum {
 	 * Controleert of de datum bestaat,
 	 * anders worden de waarden naar 0 gezet
 	 *
-	 * @param dag
-	 * @param maand
-	 * @param jaar
+	 * @param dag dag van de datum
+	 * @param maand maand van de datum
+	 * @param jaar jaar van de datum
 	 */
 	public Datum(int dag, int maand, int jaar) {
+		//meteen checken of datum bestaat
 		if(bestaatDatum(this.dag, this.maand, this.jaar)) {
 			this.dag = dag;
 			this.maand = maand;

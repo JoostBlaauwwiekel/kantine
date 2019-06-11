@@ -1,3 +1,8 @@
+/**
+ * class Betaalwijze
+ * @version 1.0
+ * @author Joost Blaauwiekel & Hessel Jager
+ */
 public abstract class Betaalwijze {
 
     protected double saldo;

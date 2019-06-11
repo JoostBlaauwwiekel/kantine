@@ -1,6 +1,10 @@
 import java.util.Iterator;
 import java.util.Stack;
-
+/**
+ * class Kassa
+ * @version 1.0
+ * @author Joost Blaauwiekel & Hessel Jager
+ */
 public class Kassa {
     private KassaRij kassarij;
     private double kassa = 0.00;

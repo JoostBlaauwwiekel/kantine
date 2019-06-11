@@ -1,9 +1,7 @@
 /**
- * Subclass Docent
- *
- * @author Joost Blaauwwiekel;, Hessel Jager
+ * subclass Docent
  * @version 1.0
- *
+ * @author Joost Blaauwiekel & Hessel Jager
  */
 public class Docent extends Persoon {
 

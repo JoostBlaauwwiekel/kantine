@@ -1,9 +1,7 @@
 /**
- * Subclass KantineMedewerker
- *
- * @author Joost Blaauwwiekel;, Hessel Jager
+ * subclass KantineMedewerker
  * @version 1.0
- *
+ * @author Joost Blaauwiekel & Hessel Jager
  */
 public class KantineMedewerker extends Persoon {
 

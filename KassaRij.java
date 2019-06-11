@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
-
+/**
+ * class KassaRij
+ * @version 1.0
+ * @author Joost Blaauwiekel & Hessel Jager
+ */
 public class KassaRij {
     LinkedList<Persoon> persoon = new LinkedList<>();
     /**

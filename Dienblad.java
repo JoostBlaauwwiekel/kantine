@@ -1,17 +1,12 @@
-/**
- *
- * Class Dienblad
- *
- * @author
- * @version
- *
- */
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Stack;
 
-
+/**
+ * class Dienblad
+ * @version 1.0
+ * @author Joost Blaauwiekel & Hessel Jager
+ */
 public class Dienblad {
     private Stack<Artikel> artikelen = new Stack();
     private Persoon klant;

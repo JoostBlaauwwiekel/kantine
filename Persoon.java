@@ -1,12 +1,12 @@
+import java.util.ArrayList;
 /**
+ * class Persoon
  * @version 1.0
- * @author Joost Blaauwwiekel
- *
- * Class Persoon
- * Deze klasse bevat alle informatie van een persoon
- *
+ * @author Joost Blaauwiekel & Hessel Jager
  */
 public class Persoon {
+
+    static ArrayList<Integer> BSN_Onthouder = new ArrayList<Integer>();
 
     public int BSN;
     public String voornaam;
@@ -14,20 +14,51 @@ public class Persoon {
     public Datum geboortedatum;
     public char geslacht;
 
+    /**
+     * Constructor voor een Persoon klasse
+     *
+     * @param BSN burgerservicenummer, uniek per persoon
+     * @param voornaam voornaam van persoon
+     * @param achternaam achternaam van persoon
+     * @param geslacht geslacht van persoon
+     * @param dag dag van de maand van geboortedatum
+     * @param maand geboortemaand
+     * @param jaar geboortejaar
+     */
     public Persoon(int BSN, String voornaam, String achternaam, char geslacht, int dag, int maand, int jaar) {
-        this.BSN = BSN;
-        this.voornaam = voornaam;
-        this.achternaam = achternaam;
-        this.geslacht = geslacht;
-        this.geboortedatum = new Datum(dag, maand, jaar);
+        if(bestaatBSN(BSN)) {
+            System.out.println("BSN bestaat al, probeer opnieuw");
+            return;
+        } else {
+            this.BSN = BSN;
+            BSN_Onthouder.add(BSN);
+            this.voornaam = voornaam;
+            this.achternaam = achternaam;
+            this.geslacht = geslacht;
+            this.geboortedatum = new Datum(dag, maand, jaar);
+        }
     }
 
+    /**
+     * Constructor voor klasse Persoon met alle waarden leeg
+     */
     public Persoon() {
         BSN = 0;
         voornaam = "";
         achternaam = "";
         geslacht = Character.MIN_VALUE; //empty char value
 
+    }
+
+    public static boolean bestaatBSN(int nieuwBSN) {
+        boolean exists = false;
+        for(Integer e : BSN_Onthouder) {
+            if(nieuwBSN == e) {
+                exists = true;
+                break;
+            }
+        }
+        return exists;
     }
 
     public void setGeboortedatum(Datum geboortedatum) {

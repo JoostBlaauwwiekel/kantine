@@ -1,4 +1,9 @@
 import java.util.*;
+/**
+ * class KantineAanbod
+ * @version 1.0
+ * @author Joost Blaauwiekel & Hessel Jager
+ */
 public class KantineAanbod {
     // interne opslag voorraad
     private HashMap<String, ArrayList<Artikel>> aanbod;

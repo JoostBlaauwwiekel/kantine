@@ -1,5 +1,9 @@
 import java.util.*;
-
+/**
+ * class KantineSimulatie
+ * @version 2.0
+ * @author Joost Blaauwiekel & Hessel Jager
+ */
 public class KantineSimulatie {
 
     //de kansen om studenten, docenten en medewerkers te krijgen

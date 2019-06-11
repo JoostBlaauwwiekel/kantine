@@ -1,9 +1,8 @@
 /**
  * class Artikel
  * @version 1.0
- * @author Joost Blaauwwiekel
+ * @author Joost Blaauwiekel & Hessel Jager
  */
-
 public class Artikel {
     private String naam;
     private double prijs;

@@ -1,5 +1,10 @@
 import java.util.HashMap;
 import java.util.Iterator;
+/**
+ * class Kantine
+ * @version 1.0
+ * @author Joost Blaauwiekel & Hessel Jager
+ */
 public class Kantine {
 
     private Kassa kassa;
@@ -46,8 +51,6 @@ public class Kantine {
     public void verwerkRijVoorKassa(HashMap koppeling) {
         Iterator iterator = koppeling.entrySet().iterator();
         while(iterator.hasNext()) {
-            Dienblad dienblad = (Dienblad) iterator.next();
-            kassa.rekenAf(dienblad);
         }
     }
 

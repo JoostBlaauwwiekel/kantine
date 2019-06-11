@@ -1,5 +1,11 @@
+/**
+ * class Administratie
+ * @version 1.0
+ * @author Joost Blaauwiekel & Hessel Jager
+ */
 public class Administratie {
 
+    //Hoeveel dagen er in een week zitten
     final static int DAYS_IN_WEEK = 7;
 
     /**
@@ -56,10 +62,10 @@ public class Administratie {
         for(int i = 0; i < DAYS_IN_WEEK; i++) {
 
             int j = 0;
+            //Bereken eerst ALLE maandagen, dan ALLE dinsdagen enz.
             while(i + DAYS_IN_WEEK * j < omzet.length) {
                 temp[i] += omzet[i + DAYS_IN_WEEK * j];
                 j++;
-                // omitted
             }
         }
         return temp;
