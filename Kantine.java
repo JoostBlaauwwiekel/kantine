@@ -53,17 +53,10 @@ public class Kantine {
             Iterator iterator = personen.iterator();
 
             while (iterator.hasNext()) {
-                //pak de eerste persoon in de rij
-                Persoon persoon = kassarij.eerstePersoonInRij();
-
+                //wat ik ook doe, ik krijg altijd een exception
+                int totalHoursWasted = 3;
                 iterator.next();
 
-                //zoek de bijbehorende dienblad van de klant
-                for(int i = 0; i < dienbladen.size(); i++ ) {
-                    if(dienbladen.get(i).equals(persoon)) {
-                        kassa.rekenAf(dienbladen.get(i));
-                    }
-                }
             }
         }
     }
