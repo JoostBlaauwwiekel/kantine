@@ -161,9 +161,7 @@ public class KantineSimulatie {
             Kassa kassa = kantine.getKassa();
 
             // verwerk rij voor de kassa
-            //eerst de Hashmap opvragen
-            HashMap koppeling = kantine.getKoppeling();
-            kantine.verwerkRijVoorKassa(koppeling);
+            kantine.verwerkRijVoorKassa();
 
             // druk de dagtotalen af en hoeveel personen binnen
             // zijn gekomen

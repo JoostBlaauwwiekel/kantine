@@ -1,17 +1,11 @@
-import java.util.HashMap;
-import java.util.Iterator;
-/**
- * class Kantine
- * @version 1.0
- * @author Joost Blaauwiekel & Hessel Jager
- */
+import java.util.*;
+
 public class Kantine {
 
     private Kassa kassa;
     private KassaRij kassarij;
     private KantineAanbod kantineaanbod;
-    //create a instance of HashMap
-    HashMap<Persoon, Dienblad> koppeling = new HashMap<Persoon, Dienblad>();
+    private ArrayList<Dienblad> dienbladen = new ArrayList<>();
 
     /**
      * Constructor voor Kantine
@@ -40,21 +34,37 @@ public class Kantine {
         dienblad.voegToe(artikel1);
         dienblad.voegToe(artikel2);
 
-        //add the combination to the HashMap
-        koppeling.put(persoon, dienblad);
+        //add Persoon to Dienblad
+        dienblad.setKlant(persoon);
 
-        //add the customer to the 'kassarij'
-        kassarij.sluitAchteraan(persoon);
+        //insert dienblad into the arraylist
+        dienbladen.add(dienblad);
     }
 
     /**
      * Deze methode handelt de rij voor de kassa af.
      *
-     * @param koppeling de link tussen persoon en dienblad
      */
-    public void verwerkRijVoorKassa(HashMap koppeling) {
-        Iterator iterator = koppeling.entrySet().iterator();
-        while(iterator.hasNext()) {
+    public void verwerkRijVoorKassa() {
+        LinkedList personen = kassarij.getList();
+
+        //check of er een rij is
+        if(kassarij.erIsEenRij()) {
+            Iterator iterator = personen.iterator();
+
+            while (iterator.hasNext()) {
+                //pak de eerste persoon in de rij
+                Persoon persoon = kassarij.eerstePersoonInRij();
+
+                iterator.next();
+
+                //zoek de bijbehorende dienblad van de klant
+                for(int i = 0; i < dienbladen.size(); i++ ) {
+                    if(dienbladen.get(i).equals(persoon)) {
+                        kassa.rekenAf(dienbladen.get(i));
+                    }
+                }
+            }
         }
     }
 
@@ -80,14 +90,6 @@ public class Kantine {
      */
     public KantineAanbod getKantineaanbod() {
         return kantineaanbod;
-    }
-
-    /**
-     * Getter voor koppeling
-     * @return koppeling
-     */
-    public HashMap getKoppeling() {
-        return koppeling;
     }
 
     /**

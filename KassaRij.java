@@ -64,4 +64,12 @@ public class KassaRij {
         return waar;
 
     }
+
+    /**
+     * Getter voor de LinkedList
+     * @return LinkedList
+     */
+    public LinkedList getList() {
+        return persoon;
+    }
 }
