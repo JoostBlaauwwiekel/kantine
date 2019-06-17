@@ -4,7 +4,7 @@ import java.util.ArrayList;
  * @version 1.0
  * @author Joost Blaauwiekel & Hessel Jager
  */
-public class Persoon {
+public class Persoon implements KortingskaartHouder {
 
     //lijst van bestaande BSNs, want elke persoon heeft een uniek nummer
     static ArrayList<Integer> BSN_Onthouder = new ArrayList<Integer>();
@@ -199,4 +199,18 @@ public class Persoon {
         return "BSN: " + BSN + "; Naam: " + voornaam + " " + achternaam + "; Geboortedatum: " + geboortedatum + ";  Geslacht: " + geslacht;
     }
 
+    @Override
+    public double geefMaximum() {
+        return 0;
+    }
+
+    @Override
+    public double geefKortingsPercentage() {
+        return 0;
+    }
+
+    @Override
+    public boolean heeftMaximum() {
+        return false;
+    }
 }

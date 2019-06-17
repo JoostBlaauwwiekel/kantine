@@ -3,7 +3,7 @@
  * @version 1.0
  * @author Joost Blaauwiekel & Hessel Jager
  */
-public class KantineMedewerker extends Persoon {
+public class KantineMedewerker extends Persoon implements KortingskaartHouder {
 
     int medewerkersNummer;
     boolean magKassaStaan;
@@ -79,6 +79,34 @@ public class KantineMedewerker extends Persoon {
      */
     public boolean getMagKassaStaan() {
         return magKassaStaan;
+    }
+
+    /**
+     * methode die het krotingspercentage geeft
+     * @return kortingspercentage
+     */
+    @Override
+    public double geefKortingsPercentage() {
+        return 0.35;
+    }
+
+    /**
+     * Methode die terug geeft of er een maximum geld
+     * @return boolean maximum
+     */
+    @Override
+    public boolean heeftMaximum() {
+        return false;
+    }
+
+    /**
+     * Methode die het maximale bedrag aan
+     * korting terug geeft
+     * @return maximum bedrag
+     */
+    @Override
+    public double geefMaximum() {
+        return 0;
     }
 
 }

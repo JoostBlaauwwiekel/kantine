@@ -34,6 +34,36 @@ public class Kassa {
 
         Betaalwijze betaalwijze = persoon.getBetaalwijze();
 
+        if(persoon.geefKortingsPercentage() > 0) {
+            //bereken nieuwe prijs
+            double korting = persoon.geefKortingsPercentage();
+            double nieuwePrijs = (100 - korting) * kassa / 100;
+
+            //check of er een maximum geldt
+            if(persoon.heeftMaximum()) {
+                //de korting mag niet meer zijn dan 1 euro
+                //haal gewoon het maximum van de originele bedrag af
+
+                //vraag het maximale bedrag op
+                double maximaal = persoon.geefMaximum();
+
+                //bereken de korting die is gegeven
+                double gegevenKorting = kassa - nieuwePrijs;
+
+                //als deze groter is dan het maximale bedrag
+                //moeten er maatregelen genomen worden
+                if(gegevenKorting > maximaal) {
+                    //trek het maximale bedrag af van het
+                    //originele bedrag
+                    nieuwePrijs = kassa - persoon.geefMaximum();
+                }
+            }
+
+            betaalwijze.betaal(nieuwePrijs);
+
+        }
+
+        //wanneer er geen korting is wordt het originele bedrag betaald
         betaalwijze.betaal(kassa);
     }
 
