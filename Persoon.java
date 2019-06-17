@@ -14,6 +14,7 @@ public class Persoon {
     public String achternaam;
     public Datum geboortedatum;
     public char geslacht;
+    public Betaalwijze betaalwijze;
 
     /**
      * Constructor voor een Persoon klasse
@@ -171,6 +172,22 @@ public class Persoon {
         //else
         return "Onbekend";
 
+    }
+
+    /**
+     * Maakt een betaalwijze aan voor de persoon
+     * @param betaalwijze
+     */
+    public void setBetaalwijze(Betaalwijze betaalwijze) {
+        this.betaalwijze = betaalwijze;
+    }
+
+    /**
+     * Geeft terug welke betaalwijze de persoon gebruikt
+     * @return instantie variabele betaalwijze
+     */
+    public Betaalwijze getBetaalwijze() {
+        return betaalwijze;
     }
 
     /**

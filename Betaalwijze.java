@@ -7,6 +7,10 @@ public abstract class Betaalwijze {
 
     protected double saldo;
 
+    public Betaalwijze(double saldo) {
+        this.saldo = saldo;
+    }
+
     /**
      * Methode om krediet te initialiseren
      * @param saldo saldo
@@ -22,4 +26,6 @@ public abstract class Betaalwijze {
      * @return Boolean om te kijken of er voldoende saldo is
      */
     public abstract boolean betaal(double tebetalen);
+
+
 }

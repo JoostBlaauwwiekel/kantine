@@ -28,9 +28,13 @@ public class Kassa {
      *
      * @param klant de klant die moet afrekenen
      */
-    public void rekenAf(Dienblad klant) {
+    public void rekenAf(Dienblad klant, Persoon persoon) {
         kassa += getTotaalPrijs(klant);
         aantal += klant.getAantalArtikelen();
+
+        Betaalwijze betaalwijze = persoon.getBetaalwijze();
+
+        betaalwijze.betaal(kassa);
     }
 
     /**
