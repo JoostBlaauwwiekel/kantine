@@ -9,7 +9,7 @@ public class Pinpas extends Betaalwijze {
 
     public Pinpas(double kredietlimiet, double saldo) {
         super(saldo);
-
+        this.kredietlimiet = kredietlimiet;
     }
     /**
      * Methode om kredietlimiet te zetten
@@ -23,19 +23,20 @@ public class Pinpas extends Betaalwijze {
      * Methode om betaling af te handelen
      * return true
      */
-    public boolean betaal(double tebetalen) {
+    public void betaal(double tebetalen) throws TeWeinigGeldException {
         //haal het te betalen bedrag af van het saldo
         double nieuwSaldo = saldo - tebetalen;
+        double krediet = nieuwSaldo;
+
+        //Geeft de absolute waarde van krediet
+        if(nieuwSaldo < 0) {
+            krediet = nieuwSaldo*-1;
+        }
 
         //check of het nieuwe saldo minder is dan 0
-        if(nieuwSaldo < 0) {
-            //dus wanneer de klant niet genoeg geld
-            //op zijn/haar rekening heeft
-            return false;
-        } else {
-            //wanneer de klant wel genoeg geld
-            //op zijn/haar rekening heeft
-            return true;
+        if(krediet > kredietlimiet) {
+            throw new TeWeinigGeldException("U heeft uw kreditlimiet overschreden.");
         }
+        saldo = nieuwSaldo;
     }
 }

@@ -1,5 +1,7 @@
 import java.util.Iterator;
 import java.util.Stack;
+import javax.swing.JOptionPane;
+
 /**
  * class Kassa
  * @version 1.0
@@ -29,8 +31,8 @@ public class Kassa {
      * @param klant de klant die moet afrekenen
      */
     public void rekenAf(Dienblad klant, Persoon persoon) {
-        kassa += getTotaalPrijs(klant);
-        aantal += klant.getAantalArtikelen();
+        kassa = getTotaalPrijs(klant);
+        aantal = klant.getAantalArtikelen();
 
         Betaalwijze betaalwijze = persoon.getBetaalwijze();
 
@@ -55,16 +57,15 @@ public class Kassa {
                 if(gegevenKorting > maximaal) {
                     //trek het maximale bedrag af van het
                     //originele bedrag
-                    nieuwePrijs = kassa - persoon.geefMaximum();
+                    kassa -= persoon.geefMaximum();
                 }
             }
-
-            betaalwijze.betaal(nieuwePrijs);
-
         }
-
-        //wanneer er geen korting is wordt het originele bedrag betaald
-        betaalwijze.betaal(kassa);
+        try {
+            betaalwijze.betaal(kassa);
+        } catch(TeWeinigGeldException e) {
+            JOptionPane.showMessageDialog(null, e, "Foutmelding", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
     /**

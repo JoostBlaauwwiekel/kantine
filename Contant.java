@@ -17,20 +17,15 @@ public class Contant extends Betaalwijze {
      * @param tebetalen hoeveelheid dat de klant moet betalen
      * @return of de betaling is gelukt
      */
-    public boolean betaal(double tebetalen) {
+    public void betaal(double tebetalen) throws TeWeinigGeldException {
         //haal het te betalen bedrag af van het saldo
         double nieuwSaldo = saldo - tebetalen;
 
         //check of het nieuwe saldo minder is dan 0
         if(nieuwSaldo < 0) {
-            //dus wanneer de klant niet genoeg geld
-            //in zijn/haar portemonee heeft
-            return false;
-        } else {
-            //wanneer de klant wel genoeg geld
-            //in zijn/haar portemonee heeft
-            return true;
+            throw new TeWeinigGeldException("U heeft onvoldoende contant saldo.");
         }
+        saldo = nieuwSaldo;
     }
 
 

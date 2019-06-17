@@ -113,6 +113,8 @@ public class KantineSimulatie {
      * @param dagen hoeveelheid dagen dat de kantine simuleert
      */
     public void simuleer(int dagen) {
+
+
         // for lus voor dagen
         for(int i = 0; i < dagen; i++) {
 
