@@ -30,11 +30,18 @@ public class Kassa {
      *
      * @param klant de klant die moet afrekenen
      */
-    public void rekenAf(Dienblad klant, Persoon persoon) {
+    public void rekenAf(Dienblad klant) {
         kassa = getTotaalPrijs(klant);
         aantal = klant.getAantalArtikelen();
+        Persoon persoon = klant.getKlant();
 
         Betaalwijze betaalwijze = persoon.getBetaalwijze();
+
+        try {
+            betaalwijze.betaal(kassa);
+        } catch(TeWeinigGeldException e) {
+            JOptionPane.showMessageDialog(null, e, "Foutmelding", JOptionPane.INFORMATION_MESSAGE);
+        }
 
         if(persoon.geefKortingsPercentage() > 0) {
             //bereken nieuwe prijs
@@ -60,11 +67,6 @@ public class Kassa {
                     kassa -= persoon.geefMaximum();
                 }
             }
-        }
-        try {
-            betaalwijze.betaal(kassa);
-        } catch(TeWeinigGeldException e) {
-            JOptionPane.showMessageDialog(null, e, "Foutmelding", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 

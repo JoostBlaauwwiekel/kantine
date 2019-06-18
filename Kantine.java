@@ -46,17 +46,13 @@ public class Kantine {
      *
      */
     public void verwerkRijVoorKassa() {
-        LinkedList personen = kassarij.getList();
-
-        //check of er een rij is
         if(kassarij.erIsEenRij()) {
-            Iterator iterator = personen.iterator();
-
-            while (iterator.hasNext()) {
-                //wat ik ook doe, ik krijg altijd een exception
-                int totalHoursWasted = 3;
-                iterator.next();
-
+            Persoon klantAanBeurt = kassarij.eerstePersoonInRij();
+            for (Dienblad dienblad : dienbladen) {
+                if (klantAanBeurt.equals(dienblad.getKlant())) {
+                    kassa.rekenAf(dienblad);
+                    break;
+                }
             }
         }
     }

@@ -1,3 +1,5 @@
+import javax.swing.*;
+
 /**
  * class test
  * @version 1.0
@@ -7,19 +9,14 @@ public class test {
     public Datum datum;
 
     public static void main(String[] args) {
-        //Administratie administratie = new Administratie();
-        int[] i = {45, 56, 34, 39, 40, 31};
-        double[] j = {567.70, 498.25, 458.90};
-        double[] k = {321.35, 450.50, 210.45, 190.85, 193.25, 159.90, 214.25, 220.90, 201.90, 242.70, 260.35};
-        int day = 1;
-        System.out.println("Gemiddelde aantal berekenen:");
-        System.out.println(Administratie.berekenGemiddeldAantal(i)+"\n");
-        System.out.println("Gemiddelde omzet berekenen:");
-        System.out.println(Administratie.berekenGemiddeldeOmzet(j)+"\n");
-        System.out.println("Dag omzet berekenen:");
-        for (double omzet: Administratie.berekenDagOmzet(k)) {
-            System.out.println(getDay(day) + ": " + omzet);
-            day++;
+        Betaalwijze pin = new Pinpas(30, 10);
+        Betaalwijze contant = new Contant(19);
+
+        try {
+            pin.betaal(20);
+            contant.betaal(20);
+        } catch(TeWeinigGeldException e) {
+            JOptionPane.showMessageDialog(null, e, "Foutmelding", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
