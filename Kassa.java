@@ -28,11 +28,11 @@ public class Kassa {
      * de kassa worden bijgehouden. De implementatie wordt
      * later vervangen door een echte betaling door de persoon.
      *
-     * @param klant de klant die moet afrekenen
+     * @param dienblad de klant die moet afrekenen
      */
-    public void rekenAf(Dienblad klant, Persoon persoon) {
-        kassa = getTotaalPrijs(klant);
-        aantal = klant.getAantalArtikelen();
+    public void rekenAf(Dienblad dienblad, Persoon persoon) {
+        kassa = getTotaalPrijs(dienblad);
+        aantal = dienblad.getAantalArtikelen();
 
         Betaalwijze betaalwijze = persoon.getBetaalwijze();
 
