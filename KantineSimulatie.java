@@ -140,6 +140,19 @@ public class KantineSimulatie {
                     persoon = new Persoon();
                 }
 
+                //creeer een betaalwijze
+                double c = Math.random();
+                if(c < 0.5) {
+                    //50% kans
+                    Betaalwijze betaalwijze = new Pinpas(30, 10);
+                    //System.out.println("Pin:" + betaalwijze);
+                    persoon.setBetaalwijze(betaalwijze);
+                } else {
+                    Betaalwijze betaalwijze = new Contant(50);
+                    //System.out.println("Contant:" + betaalwijze);
+                    persoon.setBetaalwijze(betaalwijze);
+                }
+
                 //maak een kassarij
                 KassaRij kassarij = kantine.getKassaRij();
 
@@ -159,11 +172,12 @@ public class KantineSimulatie {
                 kassarij.sluitAchteraan(persoon);
 
             }
-            //maak een kassa
-            Kassa kassa = kantine.getKassa();
 
             // verwerk rij voor de kassa
             kantine.verwerkRijVoorKassa();
+
+            //maak een kassa
+            Kassa kassa = kantine.getKassa();
 
             // druk de dagtotalen af en hoeveel personen binnen
             // zijn gekomen
