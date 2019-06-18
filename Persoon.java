@@ -38,6 +38,18 @@ public class Persoon implements KortingskaartHouder {
             this.achternaam = achternaam;
             this.geslacht = geslacht;
             this.geboortedatum = new Datum(dag, maand, jaar);
+            Betaalwijze betaalwijze = new Pinpas(30, 10);
+
+            double c = Math.random();
+            if(c < 0.5) {
+                //50% kans
+                Betaalwijze pinpas = new Pinpas(30, 10);
+                System.out.println("Pin:" + betaalwijze);
+            } else {
+                Betaalwijze contant = new Contant(50);
+                System.out.println("Contant:" + betaalwijze);
+            }
+
         }
     }
 
@@ -49,6 +61,18 @@ public class Persoon implements KortingskaartHouder {
         voornaam = "";
         achternaam = "";
         geslacht = Character.MIN_VALUE; //empty char value
+        Betaalwijze betaalwijze = new Pinpas(30, 10);
+
+        double c = Math.random();
+        if(c < 0.5) {
+            //50% kans
+            Betaalwijze pinpas = new Pinpas(30, 10);
+            System.out.println("Pin:" + betaalwijze);
+        } else {
+            Betaalwijze contant = new Contant(50);
+            System.out.println("Contant:" + betaalwijze);
+        }
+
 
     }
 
