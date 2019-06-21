@@ -31,22 +31,17 @@ public class Kassa {
      * @param klant de klant die moet afrekenen
      */
     public void rekenAf(Dienblad klant) {
-        kassa = getTotaalPrijs(klant);
+        double teBetalen = getTotaalPrijs(klant);
+        kassa = kassa + teBetalen;
         aantal = klant.getAantalArtikelen();
         Persoon persoon = klant.getKlant();
 
         Betaalwijze betaalwijze = persoon.getBetaalwijze();
 
-        try {
-            betaalwijze.betaal(kassa);
-        } catch(TeWeinigGeldException e) {
-            JOptionPane.showMessageDialog(null, e, "Foutmelding", JOptionPane.INFORMATION_MESSAGE);
-        }
-
         if(persoon.geefKortingsPercentage() > 0) {
             //bereken nieuwe prijs
             double korting = persoon.geefKortingsPercentage();
-            double nieuwePrijs = (100 - korting) * kassa / 100;
+            double nieuwePrijs = (100 - korting) * teBetalen / 100;
 
             //check of er een maximum geldt
             if(persoon.heeftMaximum()) {
@@ -57,16 +52,22 @@ public class Kassa {
                 double maximaal = persoon.geefMaximum();
 
                 //bereken de korting die is gegeven
-                double gegevenKorting = kassa - nieuwePrijs;
+                double gegevenKorting = teBetalen - nieuwePrijs;
 
                 //als deze groter is dan het maximale bedrag
                 //moeten er maatregelen genomen worden
                 if(gegevenKorting > maximaal) {
                     //trek het maximale bedrag af van het
                     //originele bedrag
-                    kassa -= persoon.geefMaximum();
+                    teBetalen -= persoon.geefMaximum();
                 }
             }
+        }
+
+        try {
+            betaalwijze.betaal(teBetalen);
+        } catch(TeWeinigGeldException e) {
+            JOptionPane.showMessageDialog(null, e, "Foutmelding", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 

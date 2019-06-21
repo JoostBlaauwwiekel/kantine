@@ -40,7 +40,6 @@ public class KassaRij {
 
             //remove the person and return the variable
             persoon.remove(0);
-
             return klant;
         } else {
             //return null
