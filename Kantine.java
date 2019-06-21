@@ -31,8 +31,15 @@ public class Kantine {
 
         Dienblad dienblad = new Dienblad();
         //add the products
-        dienblad.voegToe(artikel1);
-        dienblad.voegToe(artikel2);
+
+        for(String artikel : artikelnamen) {
+
+            //pak een 'product' of 'artikel'
+            Artikel product = kantineaanbod.getArtikel(artikel);
+
+            //en zet hem op je dienblad
+            dienblad.voegToe(product);
+        }
 
         //add Persoon to Dienblad
         dienblad.setKlant(persoon);

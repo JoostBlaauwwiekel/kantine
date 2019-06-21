@@ -25,7 +25,7 @@ public class KantineSimulatie {
 
     // artikelen
     private static final String[] artikelnamen = new String[]
-        {"Koffie", "Broodje pindakaas", "Broodje kaas", "Appelsap"};
+            {"Koffie", "Broodje pindakaas", "Broodje kaas", "Appelsap"};
 
     // prijzen
     private static double[] artikelprijzen = new double[]{1.50, 2.10, 1.65, 1.65};
@@ -49,11 +49,11 @@ public class KantineSimulatie {
         kantine = new Kantine();
         random = new Random();
         int[] hoeveelheden = getRandomArray(
-            AANTAL_ARTIKELEN,
-            MIN_ARTIKELEN_PER_SOORT,
-            MAX_ARTIKELEN_PER_SOORT);
+                AANTAL_ARTIKELEN,
+                MIN_ARTIKELEN_PER_SOORT,
+                MAX_ARTIKELEN_PER_SOORT);
         kantineaanbod = new KantineAanbod(
-            artikelnamen, artikelprijzen, hoeveelheden);
+                artikelnamen, artikelprijzen, hoeveelheden);
 
         kantine.setKantineAanbod(kantineaanbod);
     }
@@ -161,7 +161,7 @@ public class KantineSimulatie {
                 // genereer de "artikelnummers", dit zijn indexen
                 // van de artikelnamen
                 int[] tepakken = getRandomArray(
-                    aantalartikelen, 0, AANTAL_ARTIKELEN-1);
+                        aantalartikelen, 0, AANTAL_ARTIKELEN-1);
 
                 // vind de artikelnamen op basis van
                 // de indexen hierboven
@@ -183,6 +183,8 @@ public class KantineSimulatie {
             // zijn gekomen
             kassa.aantalArtikelen();
             kassa.hoeveelheidGeldInKassa();
+
+            System.out.println(kassa.hoeveelheidGeldInKassa());
 
             // reset de kassa voor de volgende dag
             kassa.resetKassa();
