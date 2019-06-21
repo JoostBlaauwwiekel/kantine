@@ -25,17 +25,18 @@ public class Kantine {
      * @param artikelnamen lijst van artikelnamen
      */
     public void loopPakSluitAan(Persoon persoon, String[] artikelnamen) {
-        //create two products
-        Artikel artikel1 = new Artikel();
-        Artikel artikel2 = new Artikel();
-
         Dienblad dienblad = new Dienblad();
         //add the products
 
-        for(String artikel : artikelnamen) {
+        for(int i = 0; i < 3; i++) {
+            //create random nuber
+            Random rand = new Random();
+
+            // Obtain a number between [0 - 3].
+            int n = rand.nextInt(3);
 
             //pak een 'product' of 'artikel'
-            Artikel product = kantineaanbod.getArtikel(artikel);
+            Artikel product = kantineaanbod.getArtikel(artikelnamen[n]);
 
             //en zet hem op je dienblad
             dienblad.voegToe(product);
@@ -53,12 +54,13 @@ public class Kantine {
      *
      */
     public void verwerkRijVoorKassa() {
-        if(kassarij.erIsEenRij()) {
+        //als er een rij is
+        while(kassarij.erIsEenRij()) {
             Persoon klantAanBeurt = kassarij.eerstePersoonInRij();
             for (Dienblad dienblad : dienbladen) {
                 if (klantAanBeurt.equals(dienblad.getKlant())) {
-                    kassa.rekenAf(dienblad);
-                    break;
+                     kassa.rekenAf(dienblad);
+                     break;
                 }
             }
         }

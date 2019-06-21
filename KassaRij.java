@@ -6,7 +6,7 @@ import java.util.LinkedList;
  * @author Joost Blaauwiekel & Hessel Jager
  */
 public class KassaRij {
-    LinkedList<Persoon> persoon = new LinkedList<>();
+    LinkedList<Persoon> persoon = new LinkedList<Persoon>();
     /**
      * Constructor van de klasse Kassarij
      */
@@ -37,7 +37,10 @@ public class KassaRij {
             //first assign the value to a variable
             //before we delete the value from the arraylist
             klant = persoon.get(0);
+
+            //remove the person and return the variable
             persoon.remove(0);
+
             return klant;
         } else {
             //return null

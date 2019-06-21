@@ -125,7 +125,7 @@ public class KantineSimulatie {
             // laat de personen maar komen...
             for(int j = 0; j < totaalPersonen; j++) {
 
-                // maak persoon en dienblad aan, koppel ze
+                // maak persoon en dienblad aan
                 // en bedenk hoeveel artikelen worden gepakt
                 int aantalartikelen = 3 ;
                 Persoon persoon;
@@ -145,11 +145,9 @@ public class KantineSimulatie {
                 if(c < 0.5) {
                     //50% kans
                     Betaalwijze betaalwijze = new Pinpas(30, 10);
-                    //System.out.println("Pin:" + betaalwijze);
                     persoon.setBetaalwijze(betaalwijze);
                 } else {
                     Betaalwijze betaalwijze = new Contant(50);
-                    //System.out.println("Contant:" + betaalwijze);
                     persoon.setBetaalwijze(betaalwijze);
                 }
 
@@ -158,19 +156,9 @@ public class KantineSimulatie {
 
                 kantine.loopPakSluitAan(persoon, artikelnamen);
 
-                // genereer de "artikelnummers", dit zijn indexen
-                // van de artikelnamen
-                int[] tepakken = getRandomArray(
-                        aantalartikelen, 0, AANTAL_ARTIKELEN-1);
-
-                // vind de artikelnamen op basis van
-                // de indexen hierboven
-                String[] artikelen = geefArtikelNamen(tepakken);
-
                 // loop de kantine binnen, pak de gewenste
                 // artikelen, sluit aan
                 kassarij.sluitAchteraan(persoon);
-
             }
 
             // verwerk rij voor de kassa
@@ -179,12 +167,12 @@ public class KantineSimulatie {
             //maak een kassa
             Kassa kassa = kantine.getKassa();
 
+            System.out.println(kassa.hoeveelheidGeldInKassa());
+
             // druk de dagtotalen af en hoeveel personen binnen
             // zijn gekomen
             kassa.aantalArtikelen();
             kassa.hoeveelheidGeldInKassa();
-
-            System.out.println(kassa.hoeveelheidGeldInKassa());
 
             // reset de kassa voor de volgende dag
             kassa.resetKassa();
