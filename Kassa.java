@@ -1,6 +1,12 @@
 import java.util.Iterator;
 import java.util.Stack;
 import javax.swing.JOptionPane;
+import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.CriteriaUpdate;
+import javax.persistence.metamodel.Metamodel;
 
 /**
  * class Kassa
@@ -11,15 +17,16 @@ public class Kassa {
     private KassaRij kassarij;
     private double kassa = 0.00;
     private int aantal = 0;
-
+    private EntityManager manager;
 
     /**
      * Constructor van Kassa
      *
      * @param kassarij de kassarij van de kassa
      */
-    public Kassa(KassaRij kassarij) {
+    public Kassa(KassaRij kassarij, EntityManager manager) {
         this.kassarij = kassarij;
+        manager = this.manager;
     }
 
     /**
