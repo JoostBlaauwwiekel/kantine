@@ -64,7 +64,9 @@ public class Kassa {
             //Voeg geld toe aan kassa
             kassa += teBetalen;
         } catch(TeWeinigGeldException e) {
-            transaction.rollback();
+            if (transaction != null) {
+                transaction.rollback();
+            }
             JOptionPane.showMessageDialog(null, e, "Foutmelding", JOptionPane.INFORMATION_MESSAGE);
         }
     }

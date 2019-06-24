@@ -6,16 +6,16 @@ import java.text.DecimalFormat;
 @Table(name="factuur_regel")
 public class FactuurRegel implements Serializable {
 
-    //Decimalen van bedragen altijd met 2 decimalen
-    private final DecimalFormat geldNotatie = new DecimalFormat("#.00");
-
+    //id van factuurregel
     @Id
     @GeneratedValue
     private long id;
 
+    //factuurregel hoort bij dit factuur
     @ManyToOne
     private Factuur factuur;
 
+    //artikel van de regel
     @Embedded
     private Artikel artikel;
 

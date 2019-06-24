@@ -11,9 +11,6 @@ import java.util.Stack;
 @Table
 public class Factuur implements Serializable {
 
-    //Decimalen van bedragen altijd met 2 decimalen
-    private final DecimalFormat geldNotatie = new DecimalFormat("#.00");
-
     //id van factuur
     @Id
     @GeneratedValue
