@@ -38,32 +38,6 @@ public class Kassa {
 
         Betaalwijze betaalwijze = persoon.getBetaalwijze();
 
-        if(persoon.geefKortingsPercentage() > 0) {
-            //bereken nieuwe prijs
-            double korting = persoon.geefKortingsPercentage();
-            double nieuwePrijs = (100 - korting) * teBetalen / 100;
-
-            //check of er een maximum geldt
-            if(persoon.heeftMaximum()) {
-                //de korting mag niet meer zijn dan 1 euro
-                //haal gewoon het maximum van de originele bedrag af
-
-                //vraag het maximale bedrag op
-                double maximaal = persoon.geefMaximum();
-
-                //bereken de korting die is gegeven
-                double gegevenKorting = teBetalen - nieuwePrijs;
-
-                //als deze groter is dan het maximale bedrag
-                //moeten er maatregelen genomen worden
-                if(gegevenKorting > maximaal) {
-                    //trek het maximale bedrag af van het
-                    //originele bedrag
-                    teBetalen -= persoon.geefMaximum();
-                }
-            }
-        }
-
         try {
             betaalwijze.betaal(teBetalen);
         } catch(TeWeinigGeldException e) {
@@ -117,7 +91,7 @@ public class Kassa {
      * @param dienblad dienblad met artikelen
      * @return De totaalprijs
      */
-    public double getTotaalPrijs(Dienblad dienblad) {
+    public static double getTotaalPrijs(Dienblad dienblad) {
         Stack artikelen = dienblad.getArtikel();
         Iterator iterator = artikelen.iterator();
         int prijs = 0;
@@ -127,5 +101,34 @@ public class Kassa {
             prijs += artikel.getPrijs();
         }
         return prijs;
+    }
+
+    public static double getKorting(Persoon persoon, double teBetalen) {
+        if(persoon.geefKortingsPercentage() > 0) {
+            //bereken nieuwe prijs
+            double korting = persoon.geefKortingsPercentage();
+            double nieuwePrijs = (100 - korting) * teBetalen / 100;
+
+            //check of er een maximum geldt
+            if(persoon.heeftMaximum()) {
+                //de korting mag niet meer zijn dan 1 euro
+                //haal gewoon het maximum van de originele bedrag af
+
+                //vraag het maximale bedrag op
+                double maximaal = persoon.geefMaximum();
+
+                //bereken de korting die is gegeven
+                double gegevenKorting = teBetalen - nieuwePrijs;
+
+                //als deze groter is dan het maximale bedrag
+                //moeten er maatregelen genomen worden
+                if(gegevenKorting > maximaal) {
+                    return maximaal;
+                } else {
+                    return gegevenKorting;
+                }
+            }
+        }
+        return 0;
     }
 }

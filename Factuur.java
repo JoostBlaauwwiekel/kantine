@@ -70,7 +70,7 @@ public class Factuur implements Serializable {
      * @return printbaar bonnetje
      */
     public String toString() {
-
+        
         return "";
     }
 }
