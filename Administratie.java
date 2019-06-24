@@ -70,4 +70,25 @@ public class Administratie {
         }
         return temp;
     }
+
+    public static String getDay(int x) {
+        switch(x) {
+            case 0:
+                return "maandag";
+            case 1:
+                return "dinsdag";
+            case 2:
+                return "woensdag";
+            case 3:
+                return "donderdag";
+            case 4:
+                return "vrijdag";
+            case 5:
+                return "zaterdag";
+            case 6:
+                return "zondag";
+            default:
+                return ("Er ging iets mis met de dag vinden x=" + x);
+        }
+    }
 }

@@ -1,3 +1,4 @@
+import java.text.DecimalFormat;
 import java.util.*;
 /**
  * class KantineSimulatie
@@ -5,6 +6,8 @@ import java.util.*;
  * @author Joost Blaauwiekel & Hessel Jager
  */
 public class KantineSimulatie {
+    //Decimalen van bedragen altijd met 2 decimalen
+    private DecimalFormat geldNotatie = new DecimalFormat("#.00");
 
     //de kansen om studenten, docenten en medewerkers te krijgen
     static int kansStudenten = 89;
@@ -113,8 +116,6 @@ public class KantineSimulatie {
      * @param dagen hoeveelheid dagen dat de kantine simuleert
      */
     public void simuleer(int dagen) {
-
-
         // for lus voor dagen
         for(int i = 0; i < dagen; i++) {
 
@@ -167,7 +168,7 @@ public class KantineSimulatie {
             //maak een kassa
             Kassa kassa = kantine.getKassa();
 
-            System.out.println(kassa.hoeveelheidGeldInKassa());
+            System.out.println("Kas op " + Administratie.getDay(i) + ": €" + geldNotatie.format(kassa.hoeveelheidGeldInKassa()));
 
             // druk de dagtotalen af en hoeveel personen binnen
             // zijn gekomen
