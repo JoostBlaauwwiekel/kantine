@@ -1,10 +1,19 @@
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
 /**
  * class Artikel
  * @version 1.0
  * @author Joost Blaauwiekel & Hessel Jager
  */
+
+@Embeddable
 public class Artikel {
+
+    @Column
     private String naam;
+
+    @Column
     private double prijs;
 
     /**
@@ -22,8 +31,8 @@ public class Artikel {
      * Parameterloze constructor van Artikel
      */
     public Artikel() {
-        //nothing
-
+        naam = "testArtikel";
+        prijs = 1.00;
     }
 
     /**
