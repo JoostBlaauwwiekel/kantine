@@ -1,4 +1,10 @@
 import java.util.*;
+import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.CriteriaUpdate;
+import javax.persistence.metamodel.Metamodel;
 
 public class Kantine {
 
@@ -6,14 +12,18 @@ public class Kantine {
     private KassaRij kassarij;
     private KantineAanbod kantineaanbod;
     private ArrayList<Dienblad> dienbladen = new ArrayList<>();
+    private EntityManager manager;
 
     /**
      * Constructor voor Kantine
      */
-    public Kantine() {
+    public Kantine(EntityManager manager) {
         kassarij = new KassaRij();
-        kassa = new Kassa(kassarij);
+        kassa = new Kassa(kassarij, manager);
+        manager = this.manager;
     }
+
+
 
     /**
      * In deze methode wordt een Persoon en Dienblad gemaakt
