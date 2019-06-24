@@ -1,11 +1,21 @@
 import java.text.DecimalFormat;
 import java.util.*;
+import javax.persistence.*;
+
 /**
  * class KantineSimulatie
  * @version 2.0
  * @author Joost Blaauwiekel & Hessel Jager
  */
 public class KantineSimulatie {
+
+    //variabelen voor de database verbinding
+    private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
+            .createEntityManagerFactory("KantineSimulatie");
+
+    private EntityManager manager;
+
+
     //Decimalen van bedragen altijd met 2 decimalen
     private DecimalFormat geldNotatie = new DecimalFormat("#.00");
 
