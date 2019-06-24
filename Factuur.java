@@ -1,18 +1,18 @@
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.xml.stream.FactoryConfigurationError;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Stack;
 
 @Entity
+@Table
 public class Factuur implements Serializable {
 
     //Decimalen van bedragen altijd met 2 decimalen
-    private DecimalFormat geldNotatie = new DecimalFormat("#.00");
+    private final DecimalFormat geldNotatie = new DecimalFormat("#.00");
 
     //id van factuur
     @Id
@@ -24,14 +24,15 @@ public class Factuur implements Serializable {
     private LocalDate datum;
 
     //korting van factuur
+    @Column
     private double korting;
 
     //totaal van factuur
+    @Column
     private double totaal;
 
-    //Klan van factuur
-    @Column
-    private Dienblad klant;
+    @OneToMany(cascade = CascadeType.ALL)
+    private ArrayList<FactuurRegel> regels = new ArrayList();
 
     /**
      * Constructor zonder parameters
@@ -39,6 +40,7 @@ public class Factuur implements Serializable {
     public Factuur() {
         totaal = 0;
         korting = 0;
+        datum = LocalDate.now();
     }
 
     /**
@@ -50,7 +52,6 @@ public class Factuur implements Serializable {
     public Factuur(Dienblad klant, LocalDate datum) {
         this();
         this.datum = datum;
-        this.klant = klant;
 
         verwerkBestelling(klant);
     }
@@ -64,9 +65,16 @@ public class Factuur implements Serializable {
      * @param dienblad klant van factuur
      */
     private void verwerkBestelling(Dienblad dienblad) {
+        //zet de totaalprijs en korting vast
         totaal = getTotaalPrijs(dienblad);
         korting = getKorting(dienblad.getKlant(), totaal);
-        toString();
+        //maak van elk artikel in het dienblad een FactuurRegel
+        Stack<Artikel> artikelen = dienblad.getArtikel();
+        for (Artikel artikel: artikelen) {
+            FactuurRegel regel = new FactuurRegel(this, artikel);
+            //voeg FactuurRegel toe aan ArrayList
+            regels.add(regel);
+        }
     }
 
     /**
@@ -87,26 +95,57 @@ public class Factuur implements Serializable {
     }
 
     /**
+     * getter voor datum
+     * @return datum
+     */
+    public LocalDate getDatum(){ return datum; }
+
+    /**
+     * setter voor totaal
+     * @param totaal totaalprijs
+     */
+    public void setTotaal(double totaal) {
+        this.totaal = totaal;
+    }
+
+    /**
+     * setter voor korting
+     * @param korting korting
+     */
+    public void setKorting(double korting) {
+        this.korting = korting;
+    }
+
+    /**
+     * setter voor datum
+     * @param datum datum
+     */
+    public void setDatum(LocalDate datum) {
+        this.datum = datum;
+    }
+
+    /**
+     * voegt regels toe aan array
+     * @param regel factuurregel
+     */
+    public void addRegel(FactuurRegel regel) {
+        regels.add(regel);
+    }
+
+    /**
      * toString methode
      * @return printbaar bonnetje
      */
     public String toString() {
-        //Lijst van artikelen van de klant
-        Stack<Artikel> artikelen = klant.getArtikel();
-        //De persoonsgegevens van de klant
-        Persoon persoon = klant.getKlant();
-        //Het begin van de kassabon
-        String beginBon = String.format("Kassabon voor %s. %s \t id: %d \n datum: %s\n artikelnaam \t \t artikelprijs \n",
-                persoon.adressering(), persoon.getAchternaam(), id, datum.toString());
-        String artikelenBon = "";
-        for(Artikel artikel : artikelen) {
-            String naam = artikel.getNaam();
-            double prijs = artikel.getPrijs();
-            artikelenBon += naam + "\t \t" + geldNotatie.format(prijs) + "\n";
+        String breakLine = "----------------------------\n";
+        String beginRegel = String.format("%sKassabon id: %d\tdatum: %s\n", breakLine, id, datum.toString());
+        String artikelRegels = String.format("artikelnaam\t\t\tartikelprijs\n%s", breakLine);
+        for(FactuurRegel regel : regels) {
+            artikelRegels += regel.toString();
         }
-        String eindeBon = String.format("Totaalbedrag:\t€%f\nKorting:\t€%f\nTe betalen:\t€%f",
-                geldNotatie.format(totaal), geldNotatie.format(korting), geldNotatie.format(totaal - korting));
-        return beginBon + artikelenBon + eindeBon;
+        String eindeRegels = String.format("%sTotaalbedrag:\t\t€%.2f\nKorting:\t\t\t€%.2f\n%sTe betalen:\t\t\t€%.2f\n%s", breakLine,
+                totaal, korting, breakLine, totaal - korting, breakLine);
+        return beginRegel + artikelRegels + eindeRegels;
     }
 
     /**
@@ -139,7 +178,7 @@ public class Factuur implements Serializable {
         if(persoon.geefKortingsPercentage() > 0) {
             //bereken nieuwe prijs
             double korting = persoon.geefKortingsPercentage();
-            double nieuwePrijs = (100 - korting) * teBetalen / 100;
+            double nieuwePrijs = (100 - korting) * teBetalen;
 
             //check of er een maximum geldt
             if(persoon.heeftMaximum()) {
