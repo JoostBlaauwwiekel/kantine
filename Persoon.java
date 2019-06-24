@@ -177,6 +177,23 @@ public class Persoon implements KortingskaartHouder {
     }
 
     /**
+     * @return de adressering van een persoon
+     */
+    public String adressering() {
+
+        if(geslacht == 'm' || geslacht == 'M') {
+            return "dhr.";
+        }
+        if(geslacht == 'v' || geslacht == 'V') {
+            return "mvr.";
+        }
+
+        //else
+        return "";
+
+    }
+
+    /**
      * Maakt een betaalwijze aan voor de persoon
      * @param betaalwijze
      */

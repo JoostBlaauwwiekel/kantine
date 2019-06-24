@@ -20,7 +20,7 @@ public class Kantine {
     public Kantine(EntityManager manager) {
         kassarij = new KassaRij();
         kassa = new Kassa(kassarij, manager);
-        manager = this.manager;
+        this.manager = manager;
     }
 
 

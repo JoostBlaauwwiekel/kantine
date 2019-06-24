@@ -273,7 +273,7 @@ public class KantineSimulatie {
         public <T> List<EntityGraph<? super T>> getEntityGraphs(Class<T> aClass) {
             return null;
         }
-    };;
+    };
 
     //Decimalen van bedragen altijd met 2 decimalen
     private DecimalFormat geldNotatie = new DecimalFormat("#.00");
@@ -320,7 +320,7 @@ public class KantineSimulatie {
     public KantineSimulatie() {
         random = new Random();
 
-        kantine = new Kantine(manager);
+        //kantine = new Kantine(manager);
 
         int[] hoeveelheden = getRandomArray(
                 AANTAL_ARTIKELEN,
@@ -439,7 +439,7 @@ public class KantineSimulatie {
             //maak een kassa
             Kassa kassa = kantine.getKassa();
 
-            System.out.println("Kas op " + Administratie.getDay(i) + ": €" + geldNotatie.format(kassa.hoeveelheidGeldInKassa()));
+            System.out.println("Kas op " + Administratie.getDay(i) + ": \t€" + geldNotatie.format(kassa.hoeveelheidGeldInKassa()));
 
             // druk de dagtotalen af en hoeveel personen binnen
             // zijn gekomen

@@ -1,6 +1,8 @@
 import java.util.Iterator;
 import java.util.Stack;
+import javax.persistence.EntityManager;
 import javax.swing.JOptionPane;
+import java.time.LocalDate;
 
 /**
  * class Kassa
@@ -11,15 +13,16 @@ public class Kassa {
     private KassaRij kassarij;
     private double kassa = 0.00;
     private int aantal = 0;
-
+    private EntityManager manager;
 
     /**
      * Constructor van Kassa
      *
      * @param kassarij de kassarij van de kassa
      */
-    public Kassa(KassaRij kassarij) {
+    public Kassa(KassaRij kassarij, EntityManager manager) {
         this.kassarij = kassarij;
+        this.manager = manager;
     }
 
     /**
@@ -31,15 +34,27 @@ public class Kassa {
      * @param klant de klant die moet afrekenen
      */
     public void rekenAf(Dienblad klant) {
-        double teBetalen = getTotaalPrijs(klant);
-        kassa = kassa + teBetalen;
-        aantal = klant.getAantalArtikelen();
-        Persoon persoon = klant.getKlant();
+        //Maak een factuur voor de klant
+        Factuur factuur = new Factuur(klant, LocalDate.now());
 
+        //Pak het totaal en korting van het factuur
+        double totaal = factuur.getTotaal();
+        double korting = factuur.getKorting();
+
+        //Bereken te betalen bedrag
+        double teBetalen = totaal - korting;
+
+
+        aantal = klant.getAantalArtikelen();
+
+        //Pak persoon en zijn betaalwijze
+        Persoon persoon = klant.getKlant();
         Betaalwijze betaalwijze = persoon.getBetaalwijze();
 
         try {
             betaalwijze.betaal(teBetalen);
+            //Voeg geld toe aan kassa
+            kassa += teBetalen;
         } catch(TeWeinigGeldException e) {
             JOptionPane.showMessageDialog(null, e, "Foutmelding", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -84,51 +99,4 @@ public class Kassa {
         aantal = 0;
     }
 
-    /**
-     * Methode om de totaalprijs van de artikelen
-     * op dienblad uit te rekenen
-     *
-     * @param dienblad dienblad met artikelen
-     * @return De totaalprijs
-     */
-    public static double getTotaalPrijs(Dienblad dienblad) {
-        Stack artikelen = dienblad.getArtikel();
-        Iterator iterator = artikelen.iterator();
-        int prijs = 0;
-
-        while(iterator.hasNext()) {
-            Artikel artikel = (Artikel) iterator.next();
-            prijs += artikel.getPrijs();
-        }
-        return prijs;
-    }
-
-    public static double getKorting(Persoon persoon, double teBetalen) {
-        if(persoon.geefKortingsPercentage() > 0) {
-            //bereken nieuwe prijs
-            double korting = persoon.geefKortingsPercentage();
-            double nieuwePrijs = (100 - korting) * teBetalen / 100;
-
-            //check of er een maximum geldt
-            if(persoon.heeftMaximum()) {
-                //de korting mag niet meer zijn dan 1 euro
-                //haal gewoon het maximum van de originele bedrag af
-
-                //vraag het maximale bedrag op
-                double maximaal = persoon.geefMaximum();
-
-                //bereken de korting die is gegeven
-                double gegevenKorting = teBetalen - nieuwePrijs;
-
-                //als deze groter is dan het maximale bedrag
-                //moeten er maatregelen genomen worden
-                if(gegevenKorting > maximaal) {
-                    return maximaal;
-                } else {
-                    return gegevenKorting;
-                }
-            }
-        }
-        return 0;
-    }
 }
