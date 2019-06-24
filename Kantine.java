@@ -26,36 +26,19 @@ public class Kantine {
 
 
     /**
-     * In deze methode wordt een Persoon en Dienblad gemaakt
-     * en aan elkaar gekoppeld. Maak twee Artikelen aan
-     * en plaats deze op het dienblad. Tenslotte sluit de
-     * Persoon zich aan bij de rij voor de kassa.
+     * Methode die het dienblad en persoon linkt
+     * en de producten in de dienblad zet
      *
-     * @param persoon persoon in de rij
+     * @param dienblad persoon in de rij
      * @param artikelnamen lijst van artikelnamen
      */
-    public void loopPakSluitAan(Persoon persoon, String[] artikelnamen) {
-        Dienblad dienblad = new Dienblad();
-        //add the products
-
-        for(int i = 0; i < 3; i++) {
-            //create random nuber
-            Random rand = new Random();
-
-            // Obtain a number between [0 - 3].
-            int n = rand.nextInt(3);
-
-            //pak een 'product' of 'artikel'
-            Artikel product = kantineaanbod.getArtikel(artikelnamen[n]);
-
-            //en zet hem op je dienblad
-            dienblad.voegToe(product);
+    public void loopPakSluitAan(Dienblad dienblad, String[] artikelnamen) {
+        //Voeg producten toe aan dienblad
+        for (String artikel:artikelnamen) {
+            dienblad.voegToe(kantineaanbod.getArtikel(artikel));
         }
 
-        //add Persoon to Dienblad
-        dienblad.setKlant(persoon);
-
-        //insert dienblad into the arraylist
+        //Voeg dienblad toe aan ArrayList
         dienbladen.add(dienblad);
     }
 

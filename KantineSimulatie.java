@@ -17,8 +17,7 @@ public class KantineSimulatie {
     //variabelen voor de database verbinding
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
             .createEntityManagerFactory("KantineSimulatie");
-
-    private EntityManager manager =new EntityManager() {
+    private EntityManager manager = new EntityManager() {
         @Override
         public void persist(Object o) {
 
@@ -275,13 +274,11 @@ public class KantineSimulatie {
         }
     };
 
-    //Decimalen van bedragen altijd met 2 decimalen
-    private DecimalFormat geldNotatie = new DecimalFormat("#.00");
-
     //de kansen om studenten, docenten en medewerkers te krijgen
     static int kansStudenten = 89;
     static int kansDocenten = 10;
     static int kansKantineMedewerkers = 1;
+    static int totaalKans = kansStudenten + kansDocenten + kansKantineMedewerkers;
 
     // kantine
     private Kantine kantine;
@@ -290,10 +287,13 @@ public class KantineSimulatie {
     private KantineAanbod kantineaanbod;
 
     // random generator
-    private Random random;
+    private Random random = new Random();
 
     // aantal artikelen
     private static final int AANTAL_ARTIKELEN = 4;
+
+    // aantal dagen van simulatie
+    private static final int AANTAL_DAGEN_SIM = 7;
 
     // artikelen
     private static final String[] artikelnamen = new String[]
@@ -315,21 +315,100 @@ public class KantineSimulatie {
     private static final int MAX_ARTIKELEN_PER_PERSOON = 4;
 
     /**
+     * Start een simulatie
+     */
+    public static void main(String[] args) {
+        //als kansen van de typen personen moeten altijd 100% totaal zijn
+        if(!(totaalKans == 100)) {
+            System.out.println("Kansen moeten totaal 100% zijn. Het is nu: " + (totaalKans) + "%");
+            return;
+        }
+
+        //Initialiseer de simulatie
+        KantineSimulatie simulatie = new KantineSimulatie();
+
+        //Begin simulatie
+        simulatie.simuleer(AANTAL_DAGEN_SIM);
+
+        //Voer de queries uit
+        simulatie.totaalAggregate();
+        simulatie.gemiddeldAggregate();
+        simulatie.besteDrie();
+
+        //Stop EntityManager
+        simulatie.manager.close();
+        simulatie.ENTITY_MANAGER_FACTORY.close();
+    }
+
+    /**
      * Constructor van KantineSimulatie
      */
     public KantineSimulatie() {
-        random = new Random();
+        //Initialiseer manager
+        this.manager = ENTITY_MANAGER_FACTORY.createEntityManager();
 
-        //kantine = new Kantine(manager);
+        //Maak kantine aan
+        kantine = new Kantine(manager);
 
+        //Maak kantine aanbod aan
         int[] hoeveelheden = getRandomArray(
                 AANTAL_ARTIKELEN,
                 MIN_ARTIKELEN_PER_SOORT,
                 MAX_ARTIKELEN_PER_SOORT);
         kantineaanbod = new KantineAanbod(
                 artikelnamen, artikelprijzen, hoeveelheden);
-
         kantine.setKantineAanbod(kantineaanbod);
+    }
+
+    /**
+     * Deze methode simuleert een aantal dagen
+     * in het verloop van de kantine
+     *
+     * @param dagen hoeveelheid dagen dat de kantine simuleert
+     */
+    public void simuleer(int dagen) {
+        // for lus voor dagen
+        for(int i = 0; i < dagen; i++) {
+
+            //Random totaal aantal mensen
+            int totaalPersonen = getRandomValue(MIN_PERSONEN_PER_DAG, MAX_PERSONEN_PER_DAG);
+
+            // laat de personen maar komen...
+            for(int j = 0; j < totaalPersonen; j++) {
+                //Random totaal aantal artikelen
+                int aantalartikelen = getRandomValue(MIN_ARTIKELEN_PER_PERSOON, MAX_ARTIKELEN_PER_PERSOON);
+
+                //Initialiseer een persoon van willekeurige subklasse
+                Persoon persoon = persoonGenerator();
+
+                //Initialiseer een dienblad van de persoon
+                Dienblad dienblad = new Dienblad(persoon);
+
+                //Creeer een String array voor geselecteerde artikelen
+                String[] artikelen = geefArtikelNamen(getRandomArray(aantalartikelen, 0, AANTAL_ARTIKELEN-1));
+
+                //Voeg artikelen toe aan dienblad
+                kantine.loopPakSluitAan(dienblad, artikelen);
+
+                //Initialiseer een kassarij
+                KassaRij kassarij = kantine.getKassaRij();
+
+                //Persoon sluit achteraan in de rij
+                kassarij.sluitAchteraan(persoon);
+            }
+            //Initialiseer een kassa
+            Kassa kassa = kantine.getKassa();
+
+            //Verwerk rij voor de kassa
+            kantine.verwerkRijVoorKassa();
+
+            //Geef weer hoeveel artikelen verkocht zijn en totale omzet van de dag
+            System.out.printf("Aantal verkochte artikelen op %s: %d\ttotale omzet: €%.2f\n",
+                    Administratie.getDay(i), kassa.aantalArtikelen(), kassa.hoeveelheidGeldInKassa());
+
+            // reset de kassa voor de volgende dag
+            kassa.resetKassa();
+        }
     }
 
     /**
@@ -381,93 +460,52 @@ public class KantineSimulatie {
     }
 
     /**
-     * Deze methode simuleert een aantal dagen
-     * in het verloop van de kantine
-     *
-     * @param dagen hoeveelheid dagen dat de kantine simuleert
+     * Genereert een willekeurig subklasse van Persoon
+     * gebasseerd op de kansen
+     * @return type persoon
      */
-    public void simuleer(int dagen) {
-        // for lus voor dagen
-        for(int i = 0; i < dagen; i++) {
-
-            //totaal aantal mensen
-            int totaalPersonen = 100;
-
-
-            // laat de personen maar komen...
-            for(int j = 0; j < totaalPersonen; j++) {
-
-                // maak persoon en dienblad aan
-                // en bedenk hoeveel artikelen worden gepakt
-                int aantalartikelen = 3 ;
-                Persoon persoon;
-                int randomPersoon = random.nextInt(100);
-                if(randomPersoon <= kansStudenten) {
-                    persoon = new Student("", 0);
-                } else if(randomPersoon <= kansStudenten+kansDocenten) {
-                    persoon = new Docent("", "");
-                } else if(j <= kansStudenten+kansDocenten+kansKantineMedewerkers) {
-                    persoon = new KantineMedewerker(0, false);
-                } else {
-                    persoon = new Persoon();
-                }
-
-                //creeer een betaalwijze
-                double c = Math.random();
-                if(c < 0.5) {
-                    //50% kans
-                    Betaalwijze betaalwijze = new Pinpas(30, 10);
-                    persoon.setBetaalwijze(betaalwijze);
-                } else {
-                    Betaalwijze betaalwijze = new Contant(50);
-                    persoon.setBetaalwijze(betaalwijze);
-                }
-
-                //maak een kassarij
-                KassaRij kassarij = kantine.getKassaRij();
-
-                kantine.loopPakSluitAan(persoon, artikelnamen);
-
-                // loop de kantine binnen, pak de gewenste
-                // artikelen, sluit aan
-                kassarij.sluitAchteraan(persoon);
-            }
-
-            // verwerk rij voor de kassa
-            kantine.verwerkRijVoorKassa();
-
-            //maak een kassa
-            Kassa kassa = kantine.getKassa();
-
-            System.out.println("Kas op " + Administratie.getDay(i) + ": \t€" + geldNotatie.format(kassa.hoeveelheidGeldInKassa()));
-
-            // druk de dagtotalen af en hoeveel personen binnen
-            // zijn gekomen
-            kassa.aantalArtikelen();
-            kassa.hoeveelheidGeldInKassa();
-
-            // reset de kassa voor de volgende dag
-            kassa.resetKassa();
-        }
-    }
-    /**
-     * Start een simulatie
-     */
-    public static void main(String[] args) {
-        //als kansen van de typen personen moeten altijd 100% totaal zijn
-        //als dat niet het geval is stopt het programma
-        if(!(kansStudenten+kansDocenten+kansKantineMedewerkers == 100)) {
-            System.out.println("Kansen moeten totaal 100% zijn. Het is nu: " + (kansStudenten+kansDocenten+kansKantineMedewerkers) + "%");
-            return;
-        }
-        int dagen;
-        KantineSimulatie simulatie = new KantineSimulatie();
-        if (args.length == 0) {
-            dagen = 7;
+    public Persoon persoonGenerator() {
+        Persoon persoon;
+        int randomPersoon = random.nextInt(100);
+        if(randomPersoon <= kansStudenten) {
+            persoon = new Student();
+        } else if(randomPersoon <= totaalKans-kansKantineMedewerkers) {
+            persoon = new Docent();
         } else {
-            dagen = Integer.parseInt(args[0]);
+            persoon = new KantineMedewerker();
         }
+        return persoon;
+    }
 
-        simulatie.simuleer(dagen);
+
+    /**
+     * Query die totale omzet en korting laat zien
+     */
+    public void totaalAggregate() {
+        Query query = manager.createQuery(
+                "SELECT SUM(totaal) as 'totale omzet', SUM(korting) as 'totale korting' FROM Factuur"
+        );
+        List<Object[]> resultList = query.getResultList();
+        resultList.forEach(a -> System.out.println(Arrays.toString(a)));
+    }
+
+    /**
+     * Query die gemiddelde omzet en korting laat zien
+     */
+    public void gemiddeldAggregate() {
+        Query query = manager.createQuery(
+                "SELECT AVG(totaal) as 'gemiddelde omzet', AVG(korting) as 'gemiddelde korting' FROM Factuur"
+        );
+        List<Object[]> resultList = query.getResultList();
+        resultList.forEach(a -> System.out.println(Arrays.toString(a)));
+    }
+
+    /**
+     * Query die de hoogste drie facturen kwa omzet
+     */
+    public void besteDrie() {
+        Query query = manager.createQuery(
+                "SELECT * FROM Factuur ORDER BY totaal desc LIMIT 3"
+        );
     }
 }

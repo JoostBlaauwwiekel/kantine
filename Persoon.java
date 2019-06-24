@@ -28,6 +28,7 @@ public class Persoon implements KortingskaartHouder {
      * @param jaar geboortejaar
      */
     public Persoon(int BSN, String voornaam, String achternaam, char geslacht, int dag, int maand, int jaar) {
+        this();
         if(bestaatBSN(BSN)) {
             System.out.println("BSN bestaat al, probeer opnieuw");
             return;
@@ -38,7 +39,6 @@ public class Persoon implements KortingskaartHouder {
             this.achternaam = achternaam;
             this.geslacht = geslacht;
             this.geboortedatum = new Datum(dag, maand, jaar);
-            betaalwijze = null;
         }
     }
 
@@ -50,8 +50,12 @@ public class Persoon implements KortingskaartHouder {
         voornaam = "";
         achternaam = "";
         geslacht = Character.MIN_VALUE; //empty char value
-        betaalwijze = null;
-
+        if(Math.random() < 0.5) {
+            //50% kans
+            this.betaalwijze = new Pinpas(30, 10);
+        } else {
+            this.betaalwijze = new Contant(50);
+        }
     }
 
     /**
