@@ -1,6 +1,7 @@
 import java.util.Iterator;
 import java.util.Stack;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.swing.JOptionPane;
 import java.time.LocalDate;
 
@@ -34,6 +35,9 @@ public class Kassa {
      * @param klant de klant die moet afrekenen
      */
     public void rekenAf(Dienblad klant) {
+        //Entity toevoegen
+        EntityTransaction transaction = manager.getTransaction();
+
         //Maak een factuur voor de klant
         Factuur factuur = new Factuur(klant, LocalDate.now());
 
@@ -52,10 +56,15 @@ public class Kassa {
         Betaalwijze betaalwijze = persoon.getBetaalwijze();
 
         try {
+            //Bij succesvolle betaling stopt het de factuur in de database
+            transaction.begin();
             betaalwijze.betaal(teBetalen);
+            manager.persist(factuur);
+            transaction.commit();
             //Voeg geld toe aan kassa
             kassa += teBetalen;
         } catch(TeWeinigGeldException e) {
+            transaction.rollback();
             JOptionPane.showMessageDialog(null, e, "Foutmelding", JOptionPane.INFORMATION_MESSAGE);
         }
     }

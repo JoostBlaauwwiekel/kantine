@@ -1,4 +1,7 @@
 import javax.swing.*;
+import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.util.Stack;
 
 /**
  * class test
@@ -6,22 +9,48 @@ import javax.swing.*;
  * @author Joost Blaauwiekel & Hessel Jager
  */
 public class test {
-    public Datum datum;
 
     public static void main(String[] args) {
-        Persoon persoon1 = new Persoon();
-        Persoon persoon2 = new Persoon();
-        Persoon persoon3 = new Persoon();
-        Persoon persoon4 = new Persoon();
+        String a = "bier";
+        int b = 10;
+        String testEen = String.format("Ik drink %d", b);
+        String testTwee = String.format(" koude %s", a);
+        System.out.println(testEen + testTwee);
+    }
 
-        KassaRij kassaRij = new KassaRij();
+    /**
+     * Berekent de hoeveelheid korting een persoon krijgt
+     *
+     * @param persoon persoongegevens klant
+     * @param teBetalen totaalbedrag
+     * @return
+     */
+    public static double getKorting(Persoon persoon, double teBetalen) {
+        if(persoon.geefKortingsPercentage() > 0) {
+            //bereken nieuwe prijs
+            double korting = persoon.geefKortingsPercentage();
+            double nieuwePrijs = (100 - korting) * teBetalen / 100;
 
-        kassaRij.sluitAchteraan(persoon1);
-        kassaRij.sluitAchteraan(persoon2);
-        kassaRij.sluitAchteraan(persoon3);
-        kassaRij.sluitAchteraan(persoon4);
+            //check of er een maximum geldt
+            if(persoon.heeftMaximum()) {
+                //de korting mag niet meer zijn dan 1 euro
+                //haal gewoon het maximum van de originele bedrag af
 
-        System.out.println(kassaRij.eerstePersoonInRij());
+                //vraag het maximale bedrag op
+                double maximaal = persoon.geefMaximum();
 
+                //bereken de korting die is gegeven
+                double gegevenKorting = teBetalen - nieuwePrijs;
+
+                //als deze groter is dan het maximale bedrag
+                //moeten er maatregelen genomen worden
+                if(gegevenKorting > maximaal) {
+                    return maximaal;
+                } else {
+                    return gegevenKorting;
+                }
+            }
+        }
+        return 0;
     }
 }

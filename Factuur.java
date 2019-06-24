@@ -1,18 +1,26 @@
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.Stack;
 
+@Entity
 public class Factuur implements Serializable {
 
     //Decimalen van bedragen altijd met 2 decimalen
     private DecimalFormat geldNotatie = new DecimalFormat("#.00");
 
     //id van factuur
+    @Id
+    @GeneratedValue
     private Long id;
 
     //datum van factuur
+    @Column
     private LocalDate datum;
 
     //korting van factuur
@@ -22,6 +30,7 @@ public class Factuur implements Serializable {
     private double totaal;
 
     //Klan van factuur
+    @Column
     private Dienblad klant;
 
     /**
@@ -87,16 +96,16 @@ public class Factuur implements Serializable {
         //De persoonsgegevens van de klant
         Persoon persoon = klant.getKlant();
         //Het begin van de kassabon
-        String beginBon = "Kassabon voor " + persoon.adressering() + " " + persoon.getVoornaam().substring(0,1) + ". " +
-                persoon.getAchternaam() + "\t id: " + id +"\n datum: " + datum.toString() + "\n";
-        String artikelenBon = "artikelnaam \t \t artikelprijs \n";
+        String beginBon = String.format("Kassabon voor %s. %s \t id: %d \n datum: %s\n artikelnaam \t \t artikelprijs \n",
+                persoon.adressering(), persoon.getAchternaam(), id, datum.toString());
+        String artikelenBon = "";
         for(Artikel artikel : artikelen) {
             String naam = artikel.getNaam();
             double prijs = artikel.getPrijs();
             artikelenBon += naam + "\t \t" + geldNotatie.format(prijs) + "\n";
         }
-        String eindeBon = "totaalbedrag: \t \t " + geldNotatie.format(totaal) + "\n korting: \t \t" +
-                geldNotatie.format(korting) + "\n Te betalen: \t \t" + geldNotatie.format(totaal - korting);
+        String eindeBon = String.format("Totaalbedrag:\t€%f\nKorting:\t€%f\nTe betalen:\t€%f",
+                geldNotatie.format(totaal), geldNotatie.format(korting), geldNotatie.format(totaal - korting));
         return beginBon + artikelenBon + eindeBon;
     }
 
@@ -119,6 +128,13 @@ public class Factuur implements Serializable {
         return prijs;
     }
 
+    /**
+     * Berekent de hoeveelheid korting een persoon krijgt
+     *
+     * @param persoon persoongegevens klant
+     * @param teBetalen totaalbedrag
+     * @return
+     */
     public double getKorting(Persoon persoon, double teBetalen) {
         if(persoon.geefKortingsPercentage() > 0) {
             //bereken nieuwe prijs
