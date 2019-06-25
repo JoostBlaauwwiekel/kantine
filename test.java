@@ -142,7 +142,7 @@ public class test {
             LocalDate geboortedatum = Administratie.getRandomDatum();
 
             //Initialiseerd persoon door methode op te geven en parameters door te geven
-            Persoon persoon = persoonGenerator(BSN, voornaam.trim(), achternaam.trim(), geslacht, geboortedatum);
+            Persoon persoon = persoonGenerator(BSN, voornaam, achternaam, geslacht, geboortedatum);
 
             //voeg persoon toe aan personen Arraylist
             personen.add(persoon);

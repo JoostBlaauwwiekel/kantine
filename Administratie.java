@@ -252,6 +252,9 @@ public class Administratie {
         achternamen.add("Pol");
         achternamen.add("deLeeuw");
         achternamen.add("Vebeek");
+        for(String n : achternamen) {
+            n.trim();
+        }
         return achternamen;
     }
 
@@ -361,6 +364,9 @@ public class Administratie {
         voornamenV.add("	Laura	");
         voornamenV.add("	Luna	");
         voornamenV.add("	Arya	");
+        for(String n : voornamenV) {
+            n.trim();
+        }
         return voornamenV;
     }
 
@@ -470,6 +476,9 @@ public class Administratie {
         voornamenM.add("	Tobias	");
         voornamenM.add("	Jorrit	");
         voornamenM.add("	Bryan	");
+        for(String n : voornamenM) {
+            n.trim();
+        }
         return voornamenM;
     }
 
