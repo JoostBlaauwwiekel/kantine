@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 /**
  * subclass Student
  * @version 1.0
@@ -15,14 +17,12 @@ public class Student extends Persoon {
      * @param voornaam voornaam van Student
      * @param achternaam achternaam van Student
      * @param geslacht geslacht van Student
-     * @param dag dag van de maand van geboortedatum
-     * @param maand geboortemaand
-     * @param jaar geboortejaar
+     * @param datum geboortedatum
      * @param studierichting welke opleiding de student volgt
      * @param studentnummer unieke studentnummer van de student
      */
-    public Student(int BSN, String voornaam, String achternaam, char geslacht, int dag, int maand, int jaar, String studierichting, int studentnummer) {
-        super(BSN,voornaam,achternaam,geslacht,dag,maand,jaar);
+    public Student(int BSN, String voornaam, String achternaam, char geslacht, LocalDate datum, String studierichting, int studentnummer) {
+        super(BSN,voornaam,achternaam,geslacht,datum);
         this.studentnummer = studentnummer;
         this.studierichting = studierichting;
     }
@@ -78,5 +78,14 @@ public class Student extends Persoon {
      */
     public String getStudierichting() {
         return studierichting;
+    }
+
+    /**
+     * toString methode
+     * @return String van persoonsgegevens
+     */
+    @Override
+    public String toString() {
+        return super.toString() + String.format("Studentnummer: %d; Studierichting: %s.", studentnummer, studierichting);
     }
 }

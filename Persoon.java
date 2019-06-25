@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 /**
  * class Persoon
@@ -12,7 +13,7 @@ public class Persoon implements KortingskaartHouder {
     public int BSN;
     public String voornaam;
     public String achternaam;
-    public Datum geboortedatum;
+    public LocalDate geboortedatum;
     public char geslacht;
     public Betaalwijze betaalwijze;
 
@@ -23,11 +24,9 @@ public class Persoon implements KortingskaartHouder {
      * @param voornaam voornaam van persoon
      * @param achternaam achternaam van persoon
      * @param geslacht geslacht van persoon
-     * @param dag dag van de maand van geboortedatum
-     * @param maand geboortemaand
-     * @param jaar geboortejaar
+     * @param geboortedatum geboortedatum
      */
-    public Persoon(int BSN, String voornaam, String achternaam, char geslacht, int dag, int maand, int jaar) {
+    public Persoon(int BSN, String voornaam, String achternaam, char geslacht, LocalDate geboortedatum) {
         this();
         if(bestaatBSN(BSN)) {
             System.out.println("BSN bestaat al, probeer opnieuw");
@@ -38,7 +37,7 @@ public class Persoon implements KortingskaartHouder {
             this.voornaam = voornaam;
             this.achternaam = achternaam;
             this.geslacht = geslacht;
-            this.geboortedatum = new Datum(dag, maand, jaar);
+            this.geboortedatum = geboortedatum;
         }
     }
 
@@ -80,7 +79,7 @@ public class Persoon implements KortingskaartHouder {
      *
      * @param geboortedatum geboortedatum van persoon
      */
-    public void setGeboortedatum(Datum geboortedatum) {
+    public void setGeboortedatum(LocalDate geboortedatum) {
         this.geboortedatum = geboortedatum;
     }
 
@@ -159,7 +158,7 @@ public class Persoon implements KortingskaartHouder {
      * @return geboortedatum als String
      */
     public String getGeboortedatum() {
-        return geboortedatum.getDatumAsString();
+        return geboortedatum.toString();
     }
 
     /**
@@ -219,7 +218,8 @@ public class Persoon implements KortingskaartHouder {
      * @return String van alle persoonsinformatie
      */
     public String toString() {
-        return "BSN: " + BSN + "; Naam: " + voornaam + " " + achternaam + "; Geboortedatum: " + geboortedatum + ";  Geslacht: " + geslacht;
+        return String.format("BSN: %d; Naam: %s $s; Geboortedatum: %s; Geslacht: %C; ",
+                BSN, voornaam, achternaam, geboortedatum.toString(), geslacht);
     }
 
     @Override

@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 /**
  * subclass KantineMedewerker
  * @version 1.0
@@ -15,14 +17,12 @@ public class KantineMedewerker extends Persoon implements KortingskaartHouder {
      * @param voornaam voornaam van medewerker
      * @param achternaam achternaam van medewerker
      * @param geslacht geslacht van medewerker
-     * @param dag dag van de maand van geboortedatum
-     * @param maand geboortemaand
-     * @param jaar geboortejaar
+     * @param datum geboortedatum
      * @param medewerkersNummer id-nummer van de medewerker
      * @param magKassaStaan boolean of de klant wel/niet achter de kassa mag staan
      */
-    public KantineMedewerker(int BSN, String voornaam, String achternaam, char geslacht, int dag, int maand, int jaar, int medewerkersNummer, boolean magKassaStaan) {
-        super(BSN,voornaam,achternaam,geslacht,dag,maand,jaar);
+    public KantineMedewerker(int BSN, String voornaam, String achternaam, char geslacht, LocalDate datum, int medewerkersNummer, boolean magKassaStaan) {
+        super(BSN,voornaam,achternaam,geslacht,datum);
         this.magKassaStaan = magKassaStaan;
         this.medewerkersNummer = medewerkersNummer;
     }
@@ -109,4 +109,12 @@ public class KantineMedewerker extends Persoon implements KortingskaartHouder {
         return 0;
     }
 
+    /**
+     * toString methode
+     * @return String van persoonsgegevens
+     */
+    @Override
+    public String toString() {
+        return super.toString() + String.format("Medewerkersnummer: %d; Mag achter de kassa staan: %b.", medewerkersNummer, magKassaStaan);
+    }
 }

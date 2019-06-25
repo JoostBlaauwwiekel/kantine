@@ -20,6 +20,11 @@ public abstract class Betaalwijze {
     }
 
     /**
+     * @return saldo
+     */
+    public double getSaldo() { return saldo; }
+
+    /**
      * Methode om betaling af te handelen
      *
      * @param tebetalen hoeveelheid dat de klant moet betalen

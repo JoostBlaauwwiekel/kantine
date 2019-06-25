@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 /**
  * subclass Docent
  * @version 1.0
@@ -15,14 +17,12 @@ public class Docent extends Persoon implements KortingskaartHouder {
      * @param voornaam voornaam van docent
      * @param achternaam achternaam van docent
      * @param geslacht geslacht van docent
-     * @param dag dag van de maand van geboortedatum
-     * @param maand geboortemaand
-     * @param jaar geboortejaar
+     * @param datum geboortedatum
      * @param afdeling de afdeling van de docent
      * @param afkorting de afkorting van de docent
      */
-    public Docent(int BSN, String voornaam, String achternaam, char geslacht, int dag, int maand, int jaar, String afdeling, String afkorting) {
-        super(BSN,voornaam,achternaam,geslacht,dag,maand,jaar);
+    public Docent(int BSN, String voornaam, String achternaam, char geslacht, LocalDate datum, String afdeling, String afkorting) {
+        super(BSN,voornaam,achternaam,geslacht,datum);
         this.afdeling = afdeling;
         this.afkorting = afkorting;
     }
@@ -106,5 +106,14 @@ public class Docent extends Persoon implements KortingskaartHouder {
     @Override
     public double geefMaximum() {
         return 1;
+    }
+
+    /**
+     * toString methode
+     * @return String van persoonsgegevens
+     */
+    @Override
+    public String toString() {
+        return super.toString() + String.format("Afdeling: %s; Afkorting: %s.", afdeling, afkorting);
     }
 }
