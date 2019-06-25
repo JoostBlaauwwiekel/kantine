@@ -113,8 +113,8 @@ public class Administratie {
     /**
      * @return een willekeurige studierichting uit de lijst
      */
-    public static String getRandomStudierichting(int ran) {
-        return richtingen.get(ran);
+    public static String getRandomStudierichting() {
+        return richtingen.get((int)(Math.random() * richtingen.size()-1));
     }
 
     /**
@@ -122,11 +122,11 @@ public class Administratie {
      * @param geslacht geslacht persoon
      * @return voornaam
      */
-    public static String getRandomVoornaam(char geslacht, int ran) {
+    public static String getRandomVoornaam(char geslacht) {
         if(geslacht == 'm') {
-            return voornamenM.get(ran);
+            return voornamenM.get((int)(Math.random() * voornamenM.size()-1));
         } else {
-            return voornamenV.get(ran);
+            return voornamenV.get((int)(Math.random() * voornamenV.size()-1));
         }
     }
 
@@ -134,16 +134,16 @@ public class Administratie {
      * Pakt een willekeurige achternaam uit een arraylist
      * @return achternaam
      */
-    public static String getRandomAchternaam(int ran) {
-        return achternamen.get(ran);
+    public static String getRandomAchternaam() {
+        return achternamen.get((int)(Math.random() * achternamen.size()-1));
     }
 
     /**
      * Pakt een willekeurige datum uit een arraylist
      * @return geboortedatum
      */
-    public static LocalDate getRandomDatum(int ran) {
-        return data.get(ran);
+    public static LocalDate getRandomDatum() {
+        return data.get((int)(Math.random() * data.size()-1));
     }
 
     /**

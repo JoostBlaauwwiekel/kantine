@@ -115,6 +115,6 @@ public class KantineMedewerker extends Persoon implements KortingskaartHouder {
      */
     @Override
     public String toString() {
-        return super.toString() + String.format("Medewerkersnummer: %d; Mag achter de kassa staan: %b.", medewerkersNummer, magKassaStaan);
+        return super.toString() + String.format("Medewerkersnummer: %d;\tStaat achter kassa: %b.", medewerkersNummer, magKassaStaan);
     }
 }

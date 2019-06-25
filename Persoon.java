@@ -219,8 +219,10 @@ public class Persoon implements KortingskaartHouder {
      * @return String van alle persoonsinformatie
      */
     public String toString() {
-        return String.format("BSN: %d; Naam: %s %s; Geboortedatum: %s; Geslacht: %S; ",
-                BSN, voornaam, achternaam, geboortedatum.toString(), geslacht);
+        String string = "";
+        if(BSN < 10) {string = "0";}
+        return String.format("BSN: %s%d;\tNaam: %s %s;\tGeboortedatum: %s;\tGeslacht: %S;\t",
+                string, BSN, voornaam, achternaam, geboortedatum.toString(), geslacht);
     }
 
     @Override

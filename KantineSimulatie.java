@@ -489,7 +489,7 @@ public class KantineSimulatie {
         if(randomPersoon <= kansStudenten) {
 
             //Initialiseer student-specifieke parameters
-            String studierichting = Administratie.getRandomStudierichting(getRandomValue(0,Administratie.richtingen.size()-1));;
+            String studierichting = Administratie.getRandomStudierichting();;
             int studentnummer = getRandomValue(300000, 400000);
 
             //Maak een student aan
@@ -499,7 +499,7 @@ public class KantineSimulatie {
         else if(randomPersoon <= totaalKans-kansKantineMedewerkers) {
 
             //Initialiseer docent-specifieke parameters
-            String afdeling = Administratie.getRandomStudierichting(getRandomValue(0,Administratie.richtingen.size()-1));
+            String afdeling = Administratie.getRandomStudierichting();
 
             //Afkorting is eerste twee letters van voor- en achternaam in hoofdletters
             String afkorting = (voornaam.substring(0,2).concat(achternaam.substring(0,2))).toUpperCase();
@@ -532,11 +532,11 @@ public class KantineSimulatie {
             if(Math.random() < 0.5) {geslacht = 'm';} else {geslacht = 'v';}
 
             //pakt een willekeurige voor- en achternaam uit een arraylist
-            String voornaam = Administratie.getRandomVoornaam(geslacht, getRandomValue(0, 99));
-            String achternaam = Administratie.getRandomAchternaam(getRandomValue(0,99));
+            String voornaam = Administratie.getRandomVoornaam(geslacht);
+            String achternaam = Administratie.getRandomAchternaam();
 
             //pakt een willekeurige datum uit een arraylist
-            LocalDate geboortedatum = Administratie.getRandomDatum(getRandomValue(0,Administratie.data.size()-1));
+            LocalDate geboortedatum = Administratie.getRandomDatum();
 
             //Initialiseerd persoon door methode op te geven en parameters door te geven
             Persoon persoon = persoonGenerator(BSNCounter, voornaam, achternaam, geslacht, geboortedatum);

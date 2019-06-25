@@ -135,11 +135,11 @@ public class test {
             if(Math.random() < 0.5) {geslacht = 'm';} else {geslacht = 'v';}
 
             //pakt een willekeurige voor- en achternaam uit een arraylist
-            String voornaam = Administratie.getRandomVoornaam(geslacht, (int)(Math.random() * 99));
-            String achternaam = Administratie.getRandomAchternaam((int)(Math.random() * 99));
+            String voornaam = Administratie.getRandomVoornaam(geslacht);
+            String achternaam = Administratie.getRandomAchternaam();
 
             //pakt een willekeurige datum uit een arraylist
-            LocalDate geboortedatum = Administratie.getRandomDatum((int)(Math.random() * Administratie.data.size()-1));
+            LocalDate geboortedatum = Administratie.getRandomDatum();
 
             //Initialiseerd persoon door methode op te geven en parameters door te geven
             Persoon persoon = persoonGenerator(BSN, voornaam.trim(), achternaam.trim(), geslacht, geboortedatum);
@@ -167,7 +167,7 @@ public class test {
         if(randomPersoon <= 89) {
 
             //Initialiseer student-specifieke parameters
-            String studierichting = Administratie.getRandomStudierichting((int)(Math.random() * Administratie.richtingen.size()-1));
+            String studierichting = Administratie.getRandomStudierichting();
             int studentnummer = (int)(Math.random() * 400000 - 300000) + 300000;
 
             //Maak een student aan
@@ -177,7 +177,7 @@ public class test {
         else if(randomPersoon <= 99) {
 
             //Initialiseer docent-specifieke parameters
-            String afdeling = Administratie.getRandomStudierichting((int)(Math.random() * Administratie.richtingen.size()-1));
+            String afdeling = Administratie.getRandomStudierichting();
 
             //Afkorting is eerste twee letters van voor- en achternaam in hoofdletters
             String afkorting = (voornaam.substring(0,2).concat(achternaam.substring(0,2))).toUpperCase();

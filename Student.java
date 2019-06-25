@@ -86,6 +86,6 @@ public class Student extends Persoon {
      */
     @Override
     public String toString() {
-        return super.toString() + String.format("Studentnummer: %d; Studierichting: %s.", studentnummer, studierichting);
+        return super.toString() + String.format("Studentnummer: %d;\tStudierichting: %s.", studentnummer, studierichting);
     }
 }
