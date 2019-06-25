@@ -45,6 +45,8 @@ public class test {
         factuur.setTotaal(factuur.getTotaalPrijs(dienblad));
 
         factuur.setKorting(factuur.getTotaal() - (1-kortingPersoon)*factuur.getTotaal());
+        if(factuur.getKorting() > 1) {factuur.setKorting(1);}
+
         Stack<Artikel> artikelen = dienblad.getArtikel();
         for (Artikel artikel: artikelen) {
             FactuurRegel regel = new FactuurRegel(factuur, artikel);
