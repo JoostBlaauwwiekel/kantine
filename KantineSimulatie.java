@@ -329,7 +329,7 @@ public class KantineSimulatie {
     public static void main(String[] args) {
         //als kansen van de typen personen moeten altijd 100% totaal zijn
         if(!(totaalKans == 100)) {
-            System.out.println("Kansen moeten totaal 100% zijn. Het is nu: " + (totaalKans) + "%");
+            System.out.printf("Kansen moeten totaal 100% zijn. Het is nu: %d%", totaalKans);
             return;
         }
 
@@ -384,9 +384,6 @@ public class KantineSimulatie {
 
             //Maakt een arraylist van alle personen van vandaag
             maakLijstPersonen(totaalPersonen);
-            for(Persoon persoon: personen) {
-                System.out.println(persoon.toString());
-            }
 
             // laat de personen maar komen...
             for(int j = 0; j < totaalPersonen; j++) {
