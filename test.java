@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Stack;
 
 /**
@@ -16,10 +17,11 @@ public class test {
      * @param args args
      */
     public static void main(String[] args) {
-        testFactuur();
+        //testFactuur();
         //testAdministratie();
         //testBetalen();
         //testKassaRij();
+        testPersonen();
     }
 
     /**
@@ -117,5 +119,82 @@ public class test {
 
         System.out.printf(vooraan.toString());
         System.out.printf("\n\n------------%s------------\n\n", "eindeTest");
+    }
+
+    /**
+     * test voor personen
+     */
+    public static void testPersonen() {
+        System.out.printf("\n\n-----------%s----------\n\n", "testPersonen");
+        ArrayList<Persoon> personen = new ArrayList<>();
+        int aantal = 20;
+        int BSN = 0;
+        for(int x = 0; x < aantal; x++) {
+            //50% welk geslacht het is
+            char geslacht;
+            if(Math.random() < 0.5) {geslacht = 'm';} else {geslacht = 'v';}
+
+            //pakt een willekeurige voor- en achternaam uit een arraylist
+            String voornaam = Administratie.getRandomVoornaam(geslacht, (int)(Math.random() * 99));
+            String achternaam = Administratie.getRandomAchternaam((int)(Math.random() * 99));
+
+            //pakt een willekeurige datum uit een arraylist
+            LocalDate geboortedatum = Administratie.getRandomDatum((int)(Math.random() * Administratie.data.size()-1));
+
+            //Initialiseerd persoon door methode op te geven en parameters door te geven
+            Persoon persoon = persoonGenerator(BSN, voornaam.trim(), achternaam.trim(), geslacht, geboortedatum);
+
+            //voeg persoon toe aan personen Arraylist
+            personen.add(persoon);
+            System.out.printf(persoon.toString() + "\n");
+            BSN++;
+        }
+        System.out.printf("\n\n------------%s------------\n\n", "eindeTest");
+    }
+
+    /**
+     * genereert personen voor de test lijst
+     * @return
+     */
+    public static Persoon persoonGenerator(int BSN, String voornaam, String achternaam, char geslacht, LocalDate geboortedatum) {
+        Persoon persoon;
+        Random random = new Random();
+
+        //geef een willekeurige int tot en met 100
+        int randomPersoon = random.nextInt(100);
+
+        //als randomPersoon tussen 1 en kansStudenten is, dan is het een student
+        if(randomPersoon <= 89) {
+
+            //Initialiseer student-specifieke parameters
+            String studierichting = Administratie.getRandomStudierichting((int)(Math.random() * Administratie.richtingen.size()-1));
+            int studentnummer = (int)(Math.random() * 400000 - 300000) + 300000;
+
+            //Maak een student aan
+            persoon = new Student(BSN, voornaam, achternaam, geslacht, geboortedatum, studierichting, studentnummer);
+        }
+        //als randomPersoon tussen kansStudenten en kansStudenten+kansDocenten is, dan is het een docent
+        else if(randomPersoon <= 99) {
+
+            //Initialiseer docent-specifieke parameters
+            String afdeling = Administratie.getRandomStudierichting((int)(Math.random() * Administratie.richtingen.size()-1));
+
+            //Afkorting is eerste twee letters van voor- en achternaam in hoofdletters
+            String afkorting = (voornaam.substring(0,2).concat(achternaam.substring(0,2))).toUpperCase();
+
+            //Maak een docent aan
+            persoon = new Docent(BSN, voornaam, achternaam, geslacht, geboortedatum, afdeling, afkorting);
+        }
+        //als randomPersoon boven kansStudenten+kansDocenten is, dan is het een KassaMedewerker
+        else {
+
+            //Initialiseer kassamedewerker-specifieke parameters
+            int medewerkersNummer = (int)(Math.random() * 400 - 100) + 100;
+            boolean magKassaStaan = false;
+
+            //Maak een kassamedewerker aan
+            persoon = new KantineMedewerker(BSN, voornaam, achternaam, geslacht, geboortedatum, medewerkersNummer, magKassaStaan);
+        }
+        return persoon;
     }
 }

@@ -1,4 +1,5 @@
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.util.*;
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -17,7 +18,8 @@ public class KantineSimulatie {
     //variabelen voor de database verbinding
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
             .createEntityManagerFactory("KantineSimulatie");
-    private EntityManager manager = new EntityManager() {
+    private EntityManager manager;
+    private EntityManager manager2 = new EntityManager() {
         @Override
         public void persist(Object o) {
 
@@ -280,6 +282,12 @@ public class KantineSimulatie {
     static int kansKantineMedewerkers = 1;
     static int totaalKans = kansStudenten + kansDocenten + kansKantineMedewerkers;
 
+    // ArrayList personen
+    private ArrayList<Persoon> personen = new ArrayList();
+
+    //BSNCounter wordt gebruikt om ervoor te zorgen dat elke BSN uniek blijft
+    private static int BSNCounter = 1;
+
     // kantine
     private Kantine kantine;
 
@@ -293,7 +301,7 @@ public class KantineSimulatie {
     private static final int AANTAL_ARTIKELEN = 4;
 
     // aantal dagen van simulatie
-    private static final int AANTAL_DAGEN_SIM = 7;
+    private static final int AANTAL_DAGEN = 7;
 
     // artikelen
     private static final String[] artikelnamen = new String[]
@@ -328,7 +336,7 @@ public class KantineSimulatie {
         KantineSimulatie simulatie = new KantineSimulatie();
 
         //Begin simulatie
-        simulatie.simuleer(AANTAL_DAGEN_SIM);
+        simulatie.simuleer(AANTAL_DAGEN);
 
         //Voer de queries uit
         simulatie.totaalAggregate();
@@ -373,13 +381,19 @@ public class KantineSimulatie {
             //Random totaal aantal mensen
             int totaalPersonen = getRandomValue(MIN_PERSONEN_PER_DAG, MAX_PERSONEN_PER_DAG);
 
+            //Maakt een arraylist van alle personen van vandaag
+            maakLijstPersonen(totaalPersonen);
+            for(Persoon persoon: personen) {
+                System.out.println(persoon.toString());
+            }
+
             // laat de personen maar komen...
             for(int j = 0; j < totaalPersonen; j++) {
                 //Random totaal aantal artikelen
                 int aantalartikelen = getRandomValue(MIN_ARTIKELEN_PER_PERSOON, MAX_ARTIKELEN_PER_PERSOON);
 
-                //Initialiseer een persoon van willekeurige subklasse
-                Persoon persoon = persoonGenerator();
+                //Pak een persoon uit de arraylist
+                Persoon persoon = personen.get(j);
 
                 //Initialiseer een dienblad van de persoon
                 Dienblad dienblad = new Dienblad(persoon);
@@ -406,8 +420,9 @@ public class KantineSimulatie {
             System.out.printf("Aantal verkochte artikelen op %s: %d\ttotale omzet: €%.2f\n",
                     Administratie.getDay(i), kassa.aantalArtikelen(), kassa.hoeveelheidGeldInKassa());
 
-            // reset de kassa voor de volgende dag
+            // reset de kassa en personenlijst voor de volgende dag
             kassa.resetKassa();
+            personen.clear();
         }
     }
 
@@ -437,7 +452,7 @@ public class KantineSimulatie {
      * @param max maximum getal
      * @return Een random getal tussen min en max
      */
-    private int getRandomValue(int min, int max) {
+    public int getRandomValue(int min, int max) {
         return random.nextInt(max - min + 1) + min;
     }
 
@@ -451,9 +466,9 @@ public class KantineSimulatie {
     private String[] geefArtikelNamen(int[] indexen) {
         String[] artikelen = new String[indexen.length];
 
+        //Vind de artikelnaam van elk artikel in de indexen
         for(int i = 0; i < indexen.length; i++) {
             artikelen[i] = artikelnamen[indexen[i]];
-
         }
 
         return artikelen;
@@ -464,19 +479,72 @@ public class KantineSimulatie {
      * gebasseerd op de kansen
      * @return type persoon
      */
-    public Persoon persoonGenerator() {
+    public Persoon persoonGenerator(int BSN, String voornaam, String achternaam, char geslacht, LocalDate geboortedatum) {
         Persoon persoon;
+
+        //geef een willekeurige int tot en met 100
         int randomPersoon = random.nextInt(100);
+
+        //als randomPersoon tussen 1 en kansStudenten is, dan is het een student
         if(randomPersoon <= kansStudenten) {
-            persoon = new Student();
-        } else if(randomPersoon <= totaalKans-kansKantineMedewerkers) {
-            persoon = new Docent();
-        } else {
-            persoon = new KantineMedewerker();
+
+            //Initialiseer student-specifieke parameters
+            String studierichting = Administratie.getRandomStudierichting(getRandomValue(0,Administratie.richtingen.size()-1));;
+            int studentnummer = getRandomValue(300000, 400000);
+
+            //Maak een student aan
+            persoon = new Student(BSN, voornaam, achternaam, geslacht, geboortedatum, studierichting, studentnummer);
         }
+        //als randomPersoon tussen kansStudenten en kansStudenten+kansDocenten is, dan is het een docent
+        else if(randomPersoon <= totaalKans-kansKantineMedewerkers) {
+
+            //Initialiseer docent-specifieke parameters
+            String afdeling = Administratie.getRandomStudierichting(getRandomValue(0,Administratie.richtingen.size()-1));
+
+            //Afkorting is eerste twee letters van voor- en achternaam in hoofdletters
+            String afkorting = (voornaam.substring(0,2).concat(achternaam.substring(0,2))).toUpperCase();
+
+            //Maak een docent aan
+            persoon = new Docent(BSN, voornaam, achternaam, geslacht, geboortedatum, afdeling, afkorting);
+        }
+        //als randomPersoon boven kansStudenten+kansDocenten is, dan is het een KassaMedewerker
+        else {
+
+            //Initialiseer kassamedewerker-specifieke parameters
+            int medewerkersNummer = getRandomValue(100,400);
+            boolean magKassaStaan = false;
+
+            //Maak een kassamedewerker aan
+            persoon = new KantineMedewerker(BSN, voornaam, achternaam, geslacht, geboortedatum, medewerkersNummer, magKassaStaan);
+        }
+        BSNCounter++;
         return persoon;
     }
 
+    /**
+     * Vult de arraylist met personen
+     * @param aantal personen die toegevoegd worden
+     */
+    public void maakLijstPersonen(int aantal) {
+        for(int x = 0; x < aantal; x++) {
+            //50% welk geslacht het is
+            char geslacht;
+            if(Math.random() < 0.5) {geslacht = 'm';} else {geslacht = 'v';}
+
+            //pakt een willekeurige voor- en achternaam uit een arraylist
+            String voornaam = Administratie.getRandomVoornaam(geslacht, getRandomValue(0, 99));
+            String achternaam = Administratie.getRandomAchternaam(getRandomValue(0,99));
+
+            //pakt een willekeurige datum uit een arraylist
+            LocalDate geboortedatum = Administratie.getRandomDatum(getRandomValue(0,Administratie.data.size()-1));
+
+            //Initialiseerd persoon door methode op te geven en parameters door te geven
+            Persoon persoon = persoonGenerator(BSNCounter, voornaam, achternaam, geslacht, geboortedatum);
+
+            //voeg persoon toe aan personen Arraylist
+            personen.add(persoon);
+        }
+    }
 
     /**
      * Query die totale omzet en korting laat zien
