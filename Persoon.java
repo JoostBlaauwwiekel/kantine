@@ -46,9 +46,10 @@ public class Persoon implements KortingskaartHouder {
      */
     public Persoon() {
         BSN = 0;
-        voornaam = "";
-        achternaam = "";
-        geslacht = Character.MIN_VALUE; //empty char value
+        voornaam = "voornaam";
+        achternaam = "achternaam";
+        geslacht = 'm';
+        geboortedatum = LocalDate.now();
         if(Math.random() < 0.5) {
             //50% kans
             this.betaalwijze = new Pinpas(30, 10);
@@ -218,7 +219,7 @@ public class Persoon implements KortingskaartHouder {
      * @return String van alle persoonsinformatie
      */
     public String toString() {
-        return String.format("BSN: %d; Naam: %s $s; Geboortedatum: %s; Geslacht: %C; ",
+        return String.format("BSN: %d; Naam: %s %s; Geboortedatum: %s; Geslacht: %S; ",
                 BSN, voornaam, achternaam, geboortedatum.toString(), geslacht);
     }
 

@@ -44,8 +44,8 @@ public class Docent extends Persoon implements KortingskaartHouder {
      */
     public Docent(){
         super();
-        afdeling = "";
-        afkorting = "";
+        afdeling = "afdeling";
+        afkorting = "afkorting";
     }
 
     /**

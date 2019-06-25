@@ -45,7 +45,7 @@ public class Student extends Persoon {
     public Student() {
         super();
         studentnummer = 0;
-        studierichting = "";
+        studierichting = "studierichting";
     }
 
     /**
