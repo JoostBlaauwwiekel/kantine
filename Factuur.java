@@ -28,6 +28,7 @@ public class Factuur implements Serializable {
     @Column
     private double totaal;
 
+    //Lijst van regels voor alle artikelen van een factuur
     @OneToMany(cascade = CascadeType.ALL)
     private ArrayList<FactuurRegel> regels = new ArrayList();
 
@@ -65,10 +66,12 @@ public class Factuur implements Serializable {
         //zet de totaalprijs en korting vast
         totaal = getTotaalPrijs(dienblad);
         korting = getKorting(dienblad.getKlant(), totaal);
+
         //maak van elk artikel in het dienblad een FactuurRegel
         Stack<Artikel> artikelen = dienblad.getArtikel();
         for (Artikel artikel: artikelen) {
             FactuurRegel regel = new FactuurRegel(this, artikel);
+
             //voeg FactuurRegel toe aan ArrayList
             regels.add(regel);
         }
@@ -134,12 +137,19 @@ public class Factuur implements Serializable {
      * @return printbaar bonnetje
      */
     public String toString() {
+        //breakline voor het overzichterlijker maken van de factuur
         String breakLine = "----------------------------\n";
+
+        //wat bovenaan staat op het factuur
         String beginRegel = String.format("%sKassabon id: %d\tdatum: %s\n", breakLine, id, datum.toString());
+
+        //alle factuurregels in één string zetten
         String artikelRegels = String.format("artikelnaam\t\t\tartikelprijs\n%s", breakLine);
         for(FactuurRegel regel : regels) {
             artikelRegels += regel.toString();
         }
+
+        //Totaal, korting en te betalen bedrag in string
         String eindeRegels = String.format("%sTotaalbedrag:\t\t€%.2f\nKorting:\t\t\t€%.2f\n%sTe betalen:\t\t\t€%.2f\n%s", breakLine,
                 totaal, korting, breakLine, totaal - korting, breakLine);
         return beginRegel + artikelRegels + eindeRegels;
@@ -153,8 +163,11 @@ public class Factuur implements Serializable {
      * @return De totaalprijs
      */
     public double getTotaalPrijs(Dienblad dienblad) {
+        //pak lijst van alle artikelen in dienblad
         Stack<Artikel> artikelen = dienblad.getArtikel();
         double prijs = 0;
+
+        //sommeer alle prijzen van de artikelen bij elkaar
         for(Artikel artikel: artikelen) {
             prijs += artikel.getPrijs();
         }
