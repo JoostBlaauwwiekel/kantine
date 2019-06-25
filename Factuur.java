@@ -153,12 +153,9 @@ public class Factuur implements Serializable {
      * @return De totaalprijs
      */
     public double getTotaalPrijs(Dienblad dienblad) {
-        Stack artikelen = dienblad.getArtikel();
-        Iterator iterator = artikelen.iterator();
-        int prijs = 0;
-
-        while(iterator.hasNext()) {
-            Artikel artikel = (Artikel) iterator.next();
+        Stack<Artikel> artikelen = dienblad.getArtikel();
+        double prijs = 0;
+        for(Artikel artikel: artikelen) {
             prijs += artikel.getPrijs();
         }
         return prijs;
