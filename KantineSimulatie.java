@@ -7,6 +7,7 @@ import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.metamodel.Metamodel;
+import java.sql.*;
 
 /**
  * class KantineSimulatie
@@ -573,7 +574,12 @@ public class KantineSimulatie {
      */
     public void besteDrie() {
         Query query = manager.createQuery(
-                "SELECT * FROM Factuur ORDER BY totaal desc LIMIT 3"
-        );
+                "SELECT totaal FROM Factuur ORDER BY totaal desc");
+        query.setMaxResults(3);
+        List<Double> resultList = query.getResultList();
+        System.out.println("Top drie factureren qua omzet:\n");
+        for(Double i : resultList) {
+            System.out.printf("€%.2f\n",i);
+        }
     }
 }
